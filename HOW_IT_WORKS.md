@@ -1,6 +1,6 @@
 # How the AI Newsroom workflow works
 
-This document walks through the workflow stage by stage: what each group of nodes does, why it's built that way, and what happens when something fails. Node names match the ones in `workflow/ai-newsroom.workflow.json`, so you can follow along in the n8n editor.
+This document walks through the workflow stage by stage: what each group of nodes does, why it's built that way, and what happens when something fails. Node names match the ones in `ai-newsroom.workflow.json`, so you can follow along in the n8n editor.
 
 ---
 
@@ -92,7 +92,7 @@ The model returns exactly 17 fields:
 - **Classification:** visual type, risk level and visual strategy.
 - **Media flags:** whether the source has an image, and its media type.
 
-**`AI - Validate Output`** ([code](../snippets/validate-ai-output.js)) is the contract check. It:
+**`AI - Validate Output`** ([code](validate-ai-output.js)) is the contract check. It:
 
 - accepts the OpenRouter envelope and rejects truncated replies (`finish_reason = length`);
 - parses the JSON, tolerating a Markdown code fence but nothing looser;

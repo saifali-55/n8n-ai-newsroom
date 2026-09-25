@@ -4,9 +4,9 @@ An n8n workflow that turns incoming news (Telegram channels and RSS/websites) in
 
 **Size:** 78 nodes. That's 65 active nodes, 10 sticky notes (one per stage) and 3 disabled legacy nodes kept for reference.
 
-![Workflow architecture](docs/architecture.png)
+![Workflow architecture](architecture.png)
 
-**Full walkthrough, node by node:** [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md)
+**Full walkthrough, node by node:** [HOW_IT_WORKS.md](HOW_IT_WORKS.md)
 
 ## Pipeline
 
@@ -15,7 +15,7 @@ An n8n workflow that turns incoming news (Telegram channels and RSS/websites) in
 | 1 | **Sources** | A Telegram webhook receives channel posts. A schedule trigger reads RSS feeds every 15 minutes. |
 | 2 | **Normalize & dedupe** | Every source becomes one common article object. Website items are de-duplicated by normalized URL (workflow static data). Telegram items are de-duplicated by `channel + message_id`. Pages are fetched when needed to get `og:image` and readable text. |
 | 3 | **Media / OCR / Vision** | Source photos go through a vision model (`google/gemini-2.5-flash-lite`) to extract text and context. Text-only items skip this stage. |
-| 4 | **Editorial AI** | The primary model is `qwen/qwen3-235b-a22b-2507` and the fallback is `nousresearch/hermes-3-llama-3.1-70b`, both via OpenRouter. The model must return strict JSON (`json_schema`, `strict: true`), and a Code node validates every field ([`snippets/validate-ai-output.js`](snippets/validate-ai-output.js)). Only items with `publish = true` and `importance ≥ 5` continue. |
+| 4 | **Editorial AI** | The primary model is `qwen/qwen3-235b-a22b-2507` and the fallback is `nousresearch/hermes-3-llama-3.1-70b`, both via OpenRouter. The model must return strict JSON (`json_schema`, `strict: true`), and a Code node validates every field ([`validate-ai-output.js`](validate-ai-output.js)). Only items with `publish = true` and `importance ≥ 5` continue. |
 | 5 | **Text approval** | A one-tap Telegram approval (`sendAndWait`) acts as the human editorial gate. Nothing moves forward without it. |
 | 6 | **Image generation** | An optional editorial visual is generated in 4:5. Every AI-generated image gets a deterministic Arabic label, **"صورة توضيحية"** ("illustrative image"). |
 | 7 | **Visual review** | A human picks one of: Original, Generated, Regenerate or Reject. Regeneration is capped at 2 attempts. |
@@ -33,7 +33,7 @@ An n8n workflow that turns incoming news (Telegram channels and RSS/websites) in
 
 ## Setup
 
-1. Import `workflow/ai-newsroom.workflow.json` into n8n (**Workflows → Import from file**).
+1. Import `ai-newsroom.workflow.json` into n8n (**Workflows → Import from file**).
 2. Create these credentials and attach them to the matching nodes:
    - **Telegram Bot:** `telegramApi`
    - **OpenRouter:** `openRouterApi`
