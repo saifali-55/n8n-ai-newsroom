@@ -1,0 +1,2920 @@
+{
+  "name": "AI Newsroom (n8n) — public template",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telegram-news",
+        "options": {}
+      },
+      "id": "704944a2-98ae-4645-9a74-34ee6f41b6a7",
+      "name": "TG - Incoming Webhook",
+      "webhookId": "8f6e2b00-1dcd-4475-b822-50bf15f3f727",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa9ae56f-b675-478a-a9a3-7a775a527e5a",
+              "name": "text",
+              "value": "={{ $json.body.text }}",
+              "type": "string"
+            },
+            {
+              "id": "31a88cde-ff08-4005-a557-a649eb6f10f0",
+              "name": "source_name",
+              "value": "={{ $json.body.channel ? 'Telegram @' + $json.body.channel : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "45ce7651-d672-426f-bbfd-6ebd8ef93fad",
+              "name": "source_url",
+              "value": "={{ ($json.body.channel && $json.body.id) ? 'https://t.me/' + $json.body.channel + '/' + $json.body.id : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f8e6743f-b62c-4ed3-a10c-45a65f334674",
+              "name": "caption",
+              "value": "={{ $json.body.caption ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "9021b7f2-50c6-4880-b51d-15857ad34e4b",
+              "name": "has_media",
+              "value": "={{ String($json.body.has_media) === 'true' }}",
+              "type": "boolean"
+            },
+            {
+              "id": "7510f536-dcd4-4bfd-9d46-14523824e57a",
+              "name": "media_type",
+              "value": "={{ $json.body.media_type ?? 'none' }}",
+              "type": "string"
+            },
+            {
+              "id": "8228585e-8294-4fcb-b311-002b58a2aef5",
+              "name": "media_count",
+              "value": "={{ Number($json.body.media_count ?? 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "3337d360-0ddb-4e72-9b05-cb0eb3b48678",
+              "name": "media_group_id",
+              "value": "={{ $json.body.media_group_id ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "d5ed422b-2697-4b1f-814c-43c4a6ef0649",
+              "name": "media_local_paths",
+              "value": "={{ typeof $json.body.media_local_paths === 'string' ? $json.body.media_local_paths : JSON.stringify($json.body.media_local_paths ?? []) }}",
+              "type": "string"
+            },
+            {
+              "id": "4d2be2b7-be4f-4832-9e3d-a2fd5b3dbef6",
+              "name": "source_has_image",
+              "type": "boolean",
+              "value": "={{ String($json.body.has_media) === 'true' }}"
+            },
+            {
+              "id": "35c3432b-95d8-42bc-b31d-e67bdcffc8a3",
+              "name": "source_media_type",
+              "type": "string",
+              "value": "={{ $json.body.media_type ?? 'none' }}"
+            },
+            {
+              "id": "26312e9f-595f-4f0c-96d0-d3c1106504e9",
+              "name": "message_id",
+              "type": "number",
+              "value": "={{ Number($json.body.id ?? 0) }}"
+            },
+            {
+              "id": "41f0e0c4-f41c-4baa-b9c8-5e926ef16188",
+              "name": "preview_channel_name",
+              "type": "string",
+              "value": "={{ $json.body.channel ?? '' }}"
+            },
+            {
+              "id": "ca0ccaec-98a3-4e8d-89ba-b4d0eb267d52",
+              "name": "source_type",
+              "value": "telegram",
+              "type": "string"
+            },
+            {
+              "id": "61fb1d82-0910-44d6-95b3-dfad403ee445",
+              "name": "article_url",
+              "value": "={{ ($json.body.channel && $json.body.id) ? 'https://t.me/' + $json.body.channel + '/' + $json.body.id : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "9e36b19d-da8d-4939-a8bb-549e1ec99994",
+              "name": "article_id",
+              "value": "={{ ($json.body.channel ?? '') + '/' + ($json.body.id ?? '') }}",
+              "type": "string"
+            },
+            {
+              "id": "19019b20-d13a-42c2-af96-8a0ccf68a341",
+              "name": "dedupe_key",
+              "value": "={{ 'telegram:' + ($json.body.channel ?? '') + '/' + ($json.body.id ?? '') }}",
+              "type": "string"
+            },
+            {
+              "id": "0daede94-f9a5-464a-a3f7-f8b4a6e98036",
+              "name": "source_image_url",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "5d4e0d7d-8296-4a6e-8438-b65168d20383",
+              "name": "publisher",
+              "value": "={{ $json.body.channel ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "e77bee09-1191-4494-b7d7-e1e524f0ea91",
+              "name": "display_url",
+              "value": "={{ ($json.body.channel && $json.body.id) ? 'https://t.me/' + $json.body.channel + '/' + $json.body.id : '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2b17b820-f22b-4801-852a-ed790e0008be",
+      "name": "TG - Normalize Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        384,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "81bd3e7e-c231-4e70-9f33-ae72434d9834",
+      "name": "WEB - Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        80,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "customFields": "media:content,media:thumbnail,media:group,content:encoded"
+        }
+      },
+      "id": "6ecdd75b-4366-4920-a5e5-b4c1f0509000",
+      "name": "WEB - Read RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        464
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.6-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.6-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=أنت محرر أخبار عراقي محترف. اقرأ الخبر التالي واكتب سكربت فيديو قصير (35-45 ثانية) باللهجة العراقية البيضاء.\n\nالقواعد:\n- ابدأ بهوك قوي بأول جملة يشد المشاهد\n- اذكر الحقائق الأساسية فقط، بدون حشو\n- اختم بذكر المصدر\n- ممنوع تخترع أي معلومة غير موجودة بالخبر\n- إذا الخبر مو واضح أو ناقص أو ماكو تفاصيل كافية، خلي publish = false ولا تخترع أي شي\n\nأرجع النتيجة بصيغة JSON فقط بدون أي نص إضافي:\n{\n  \"script\": \"نص السكربت هنا\",\n  \"title\": \"عنوان قصير\",\n  \"category\": \"أمني/سياسي/اقتصادي/خدمي/رياضي\",\n  \"importance\": رقم من 1 إلى 10,\n  \"publish\": true أو false\n}\n\nالخبر:\n{{ $json.text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "bcf8baa2-9711-4bb8-90b9-b72ed56d1eca",
+      "name": "LEGACY Gemini (disabled)",
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        6112,
+        -704
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "",
+          "name": "Google Gemini (legacy)"
+        }
+      },
+      "disabled": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parses the model's JSON reply. Accepts either shape:\n//   Gemini  -> { content: { parts: [{ text: \"<json string>\" }] } }\n//   OpenAI  -> { output: [ { content: [{ text: <already-parsed object> }] } ] }\n// so the node keeps working whichever branch produced the item.\n\nfunction collectParts(json) {\n  const out = [];\n  const add = (v) => {\n    if (v === undefined || v === null || v === '') return;\n    out.push(v);\n  };\n\n  // Gemini, \"Simplify Output\" on (the candidate itself)\n  for (const p of json?.content?.parts ?? []) add(p?.text);\n\n  // Gemini, \"Simplify Output\" off (full response)\n  if (!out.length) {\n    for (const c of json?.candidates ?? []) {\n      for (const p of c?.content?.parts ?? []) add(p?.text);\n    }\n  }\n\n  // OpenAI Responses API, simplified or raw\n  if (!out.length) {\n    for (const m of json?.output ?? []) {\n      for (const c of m?.content ?? []) add(c?.text);\n    }\n  }\n\n  // Last resorts\n  if (!out.length) add(json?.output_text);\n  if (!out.length) add(json?.message?.content);\n  if (!out.length) add(json?.text);\n  if (!out.length && typeof json?.content === 'string') add(json.content);\n\n  return out;\n}\n\nconst results = [];\n\nfor (const item of $input.all()) {\n  const json = item.json ?? {};\n\n  // Both models failed: the item still carries the upstream error.\n  if (json.error && json.script === undefined) {\n    results.push({ json: { error: 'model_failed', detail: String(json.error) } });\n    continue;\n  }\n\n  const parts = collectParts(json);\n\n  // In JSON mode the OpenAI node hands back an object, not a string.\n  const asObject = parts.find((p) => p && typeof p === 'object');\n  if (asObject) {\n    results.push({ json: asObject });\n    continue;\n  }\n\n  let raw = parts.filter((p) => typeof p === 'string').join('').trim();\n  raw = raw.replace(/```json/gi, '').replace(/```/g, '').trim();\n\n  let parsed = null;\n  try {\n    parsed = JSON.parse(raw);\n  } catch (e) {\n    // Some replies wrap the JSON in a sentence - take the outermost braces.\n    const start = raw.indexOf('{');\n    const end = raw.lastIndexOf('}');\n    if (start !== -1 && end > start) {\n      try {\n        parsed = JSON.parse(raw.slice(start, end + 1));\n      } catch (e2) {}\n    }\n  }\n\n  if (parsed && typeof parsed === 'object') {\n    results.push({ json: parsed });\n  } else {\n    results.push({ json: { error: 'parse_failed', raw } });\n  }\n}\n\nreturn results;\n"
+      },
+      "id": "4c4a3309-1a47-48b9-84b7-7217cbacb853",
+      "name": "LEGACY Parse Model JSON (disabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6704,
+        -704
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "750b236f-e65a-4ab1-b2d1-a8b82facf9c0",
+              "leftValue": "={{ $json.publish }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "364d8cd8-595f-45a4-ba41-fa55c2fcf606",
+              "leftValue": "={{ $json.importance }}",
+              "rightValue": 5,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "120bd4d6-f7b8-4bb2-a152-732c9d83ad18",
+      "name": "EDITORIAL - Publishability Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        7328,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "message": "=▪️ *{{ $json.title }}*\n{{ $json.category }} | {{ $json.importance }}/10 ⭐\n\n{{ $json.script }}\n\n{{ $json.source_line || '' }}\n\nℹ️ بعد الموافقة على النص سيتم تجهيز الصورة، وبعدها ستظهر لك خطوة أخيرة لاختيار الصورة والنشر.",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "✅ موافقة النص والمتابعة",
+            "disapproveLabel": "❌ رفض الخبر"
+          }
+        },
+        "chatApproval": true,
+        "options": {
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 12
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "b7055176-db44-45ac-8015-13e825f18c1c",
+      "name": "REVIEW - Text Approval",
+      "webhookId": "65405340-31fa-48b1-97e9-899637c49ee3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        9120,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b54cd4ea-013f-455e-9ecf-995eb95168a9",
+              "leftValue": "={{ $json.data?.approved === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d665d33c-873a-47a3-81e9-d413e17c5413",
+      "name": "REVIEW - Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        9440,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_POSTIZ_HOST/api/public/v1/posts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"type\": \"now\",\n  \"shortLink\": false,\n  \"date\": \"{{ $now.toISO() }}\",\n  \"tags\": [],\n  \"posts\": [\n    {\n      \"integration\": { \"id\": \"YOUR_POSTIZ_FACEBOOK_INTEGRATION_ID\" },\n      \"value\": [\n        {\n          \"content\": {{ JSON.stringify($('EDITORIAL - Publishability Filter').first().json.script) }},\n          \"image\": {{ JSON.stringify($('PUB - Restore Article').first(0).json.postiz_media || []) }}\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "6d7b87ee-188d-43cd-a459-a033bbd28d38",
+      "name": "PUB - Publish Facebook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        16912,
+        240
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Postiz API Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_POSTIZ_HOST/api/public/v1/posts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"type\": \"now\",\n  \"shortLink\": false,\n  \"date\": \"{{ $now.toISO() }}\",\n  \"tags\": [],\n  \"posts\": [\n    {\n      \"integration\": { \"id\": \"YOUR_POSTIZ_TELEGRAM_INTEGRATION_ID\" },\n      \"value\": [\n        {\n          \"content\": {{ JSON.stringify($('EDITORIAL - Publishability Filter').first().json.script) }},\n          \"image\": {{ JSON.stringify($('PUB - Restore Article').first(0).json.postiz_media || []) }}\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "dc3a5661-6aa9-429a-aa8a-e7323a7405f6",
+      "name": "PUB - Publish Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        17200,
+        240
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Postiz API Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=✅ تم إرسال الخبر إلى Postiz للنشر\n🖼 الصورة المختارة: {{ $json.selected_visual === 'generated' ? 'المولدة (صورة توضيحية)' : 'الأصلية' }}\n📰 {{ String($json.title || '').slice(0, 160).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n🔖 Postiz: FB {{ String((Array.isArray($json.postiz_facebook_result) ? $json.postiz_facebook_result.join(',') : '') || '-').replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }} | TG {{ String((Array.isArray($json.postiz_telegram_result) ? $json.postiz_telegram_result.join(',') : '') || '-').replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "5de4adc4-ac92-4285-bf14-fe16745ff0b2",
+      "name": "PUB - Notify Published",
+      "webhookId": "e047bd16-110c-4dfc-bddc-07dd287be4f0",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        17808,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "❌ مرفوض",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "2a42c20e-0aa5-458d-8872-a85bc8f543e5",
+      "name": "ERR - Notify Text Rejected",
+      "webhookId": "fa860f0b-8335-4da5-b5cb-e66a774983ff",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        9440,
+        1200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=أنت محرر أخبار عراقي محترف. اقرأ الخبر التالي واكتب سكربت فيديو قصير (35-45 ثانية) باللهجة العراقية البيضاء.\n\nالقواعد:\n- ابدأ بهوك قوي بأول جملة يشد المشاهد\n- اذكر الحقائق الأساسية فقط، بدون حشو\n- اختم بذكر المصدر\n- ممنوع تخترع أي معلومة غير موجودة بالخبر\n- إذا الخبر مو واضح أو ناقص أو ماكو تفاصيل كافية، خلي publish = false ولا تخترع أي شي\n\nأرجع النتيجة بصيغة JSON فقط بدون أي نص إضافي:\n{\n  \"script\": \"نص السكربت هنا\",\n  \"title\": \"عنوان قصير\",\n  \"category\": \"أمني/سياسي/اقتصادي/خدمي/رياضي\",\n  \"importance\": رقم من 1 إلى 10,\n  \"publish\": true أو false\n}\n\nالخبر:\n{{ $json.text }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_object"
+            }
+          }
+        }
+      },
+      "id": "2388106e-2062-4f67-9141-94e57d136e09",
+      "name": "LEGACY OpenAI Fallback (disabled)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        6400,
+        -704
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "",
+          "name": "OpenAI (legacy)"
+        }
+      },
+      "disabled": true,
+      "onError": "continueErrorOutput",
+      "notes": "Fallback for the Gemini error output. Needs an OpenAI credential (type: openAiApi)."
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=❌ فشل التنفيذ في العقدة: {{ $prevNode.name }}\n\n{{ (typeof $json.error === 'string' ? $json.error : ($json.error?.message ?? JSON.stringify($json.error ?? 'unknown error'))).slice(0, 500).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "8473cd31-a2c0-475b-b9b4-c72940aac4b0",
+      "name": "ERR - Notify Failed",
+      "webhookId": "85d22d1b-e38d-4ccc-b50a-b7e955003146",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        6720,
+        1200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6919f6f5-a6ff-4a41-8ab0-72a451e5a5de",
+              "leftValue": "={{ ($json.text ?? '').trim() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5cecf37b-3255-49d1-b9e3-3eac1e2d899a",
+              "leftValue": "={{ $json.has_media }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "759bb3ce-ff01-4be5-9456-cf3de842b8a2",
+      "name": "SRC - Has Content",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        3760,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://YOUR_SITE"
+            },
+            {
+              "name": "X-Title",
+              "value": "AI Newsroom"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"qwen/qwen3-235b-a22b-2507\",\n  \"stream\": false,\n  \"temperature\": 0.2,\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an Iraqi Arabic news editor working inside an automated publishing system.\\nYour task is to transform supplied source material into accurate, original editorial content.\\nSTRICT RULES:\\n* Never invent facts.\\n* Never create names, dates, numbers, locations, quotes or events absent from the source.\\n* Distinguish allegations, reports, statements and confirmed facts.\\n* If the source is incomplete, ambiguous, promotional, irrelevant, obviously fake, or cannot safely support publication, set publish=false.\\n* Political and security news require conservative wording.\\n* Preserve important names, numbers and official titles accurately.\\n* Write natural Iraqi Arabic suitable for spoken video narration.\\n* Do not copy long phrases verbatim from the source.\\n* Do not fabricate quotations.\\n* Do not claim independent verification unless the source actually establishes it.\\n* The video script should normally fit approximately 35-45 seconds.\\n* Produce only the requested structured output.\\nOUTPUT: a single JSON object with exactly these keys and types, no extra keys, no markdown:\\ntitle (string, non-empty), script (string, non-empty, Iraqi Arabic narration), summary (string), category (string: one of أمني/سياسي/اقتصادي/خدمي/رياضي/صحي/دولي/آخر), importance (integer 1-10), publish (boolean), source_name (string, copied from metadata or empty), source_url (string, copied from metadata or empty), image_headline (string, short Arabic headline for an image), image_prompt (string, English prompt for a news image, no real faces), voiceover (string, narration text), video_hook (string, first hook sentence), visual_type (string: one of photo/map/chart/text/none), risk_level (string: one of low/medium/high).\\n\\nIMAGE / VISUAL FIELDS (always return all three):\\n* source_has_image: true only if IMAGE CONTEXT shows an image was attached to the source; otherwise false.\\n* source_media_type: copy source_media_type from IMAGE CONTEXT (photo, video, document, or none).\\n* visual_strategy: exactly one of source, recreate, news_card, manual_review. Use source only for a plain generic source photo safe to reuse; recreate if the source image looks branded or copyrighted from another outlet or is a poster; news_card for text-only items or screenshots and infographics better shown as a branded card; manual_review if the image is sensitive or you are unsure. If there is no source image, prefer news_card. Treat suggested_visual_strategy in IMAGE CONTEXT as a hint only.\\n* image_headline and image_prompt: a short headline and a neutral image-generation prompt for a recreated visual; never depict real named private individuals, and never instruct to copy the source image.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify('SOURCE MATERIAL:\\n' + ($json.text ?? '') + '\\n\\nSOURCE METADATA:\\nsource_name: ' + ($json.source_name ?? '') + '\\nsource_url: ' + ($json.source_url ?? '') + '\\n\\nIMAGE CONTEXT:\\nsource_has_image: ' + ($json.source_has_image ?? false) + '\\nsource_media_type: ' + ($json.source_media_type ?? 'none') + '\\nocr_text: ' + ($json.ocr_text ?? '') + '\\nimage_summary: ' + ($json.image_summary ?? '') + '\\nsuggested_visual_strategy: ' + ($json.recommended_visual_strategy ?? '') + '\\n\\nCopy source_name and source_url from SOURCE METADATA exactly; if a value is empty return an empty string, never invent one.') }}\n    }\n  ],\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"salamtak_news_item\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\n          \"title\",\n          \"script\",\n          \"summary\",\n          \"category\",\n          \"importance\",\n          \"publish\",\n          \"source_name\",\n          \"source_url\",\n          \"image_headline\",\n          \"image_prompt\",\n          \"voiceover\",\n          \"video_hook\",\n          \"visual_type\",\n          \"risk_level\",\n          \"visual_strategy\",\n          \"source_has_image\",\n          \"source_media_type\"\n        ],\n        \"properties\": {\n          \"title\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"script\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"summary\": {\n            \"type\": \"string\"\n          },\n          \"category\": {\n            \"type\": \"string\"\n          },\n          \"importance\": {\n            \"type\": \"integer\",\n            \"minimum\": 1,\n            \"maximum\": 10\n          },\n          \"publish\": {\n            \"type\": \"boolean\"\n          },\n          \"source_name\": {\n            \"type\": \"string\"\n          },\n          \"source_url\": {\n            \"type\": \"string\"\n          },\n          \"image_headline\": {\n            \"type\": \"string\"\n          },\n          \"image_prompt\": {\n            \"type\": \"string\"\n          },\n          \"voiceover\": {\n            \"type\": \"string\"\n          },\n          \"video_hook\": {\n            \"type\": \"string\"\n          },\n          \"visual_type\": {\n            \"type\": \"string\"\n          },\n          \"risk_level\": {\n            \"type\": \"string\"\n          },\n          \"visual_strategy\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"source\",\n              \"recreate\",\n              \"news_card\",\n              \"manual_review\"\n            ]\n          },\n          \"source_has_image\": {\n            \"type\": \"boolean\"\n          },\n          \"source_media_type\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  },\n  \"provider\": {\n    \"require_parameters\": true\n  }\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "name": "AI - Qwen Primary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        6112,
+        240
+      ],
+      "id": "dc3a4007-f51a-4b42-b228-1c2520bf2b48",
+      "credentials": {
+        "openRouterApi": {
+          "id": "",
+          "name": "OpenRouter"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://YOUR_SITE"
+            },
+            {
+              "name": "X-Title",
+              "value": "AI Newsroom"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nousresearch/hermes-3-llama-3.1-70b\",\n  \"stream\": false,\n  \"temperature\": 0.2,\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an Iraqi Arabic news editor working inside an automated publishing system.\\nYour task is to transform supplied source material into accurate, original editorial content.\\nSTRICT RULES:\\n* Never invent facts.\\n* Never create names, dates, numbers, locations, quotes or events absent from the source.\\n* Distinguish allegations, reports, statements and confirmed facts.\\n* If the source is incomplete, ambiguous, promotional, irrelevant, obviously fake, or cannot safely support publication, set publish=false.\\n* Political and security news require conservative wording.\\n* Preserve important names, numbers and official titles accurately.\\n* Write natural Iraqi Arabic suitable for spoken video narration.\\n* Do not copy long phrases verbatim from the source.\\n* Do not fabricate quotations.\\n* Do not claim independent verification unless the source actually establishes it.\\n* The video script should normally fit approximately 35-45 seconds.\\n* Produce only the requested structured output.\\nOUTPUT: a single JSON object with exactly these keys and types, no extra keys, no markdown:\\ntitle (string, non-empty), script (string, non-empty, Iraqi Arabic narration), summary (string), category (string: one of أمني/سياسي/اقتصادي/خدمي/رياضي/صحي/دولي/آخر), importance (integer 1-10), publish (boolean), source_name (string, copied from metadata or empty), source_url (string, copied from metadata or empty), image_headline (string, short Arabic headline for an image), image_prompt (string, English prompt for a news image, no real faces), voiceover (string, narration text), video_hook (string, first hook sentence), visual_type (string: one of photo/map/chart/text/none), risk_level (string: one of low/medium/high).\\n\\nIMAGE / VISUAL FIELDS (always return all three):\\n* source_has_image: true only if IMAGE CONTEXT shows an image was attached to the source; otherwise false.\\n* source_media_type: copy source_media_type from IMAGE CONTEXT (photo, video, document, or none).\\n* visual_strategy: exactly one of source, recreate, news_card, manual_review. Use source only for a plain generic source photo safe to reuse; recreate if the source image looks branded or copyrighted from another outlet or is a poster; news_card for text-only items or screenshots and infographics better shown as a branded card; manual_review if the image is sensitive or you are unsure. If there is no source image, prefer news_card. Treat suggested_visual_strategy in IMAGE CONTEXT as a hint only.\\n* image_headline and image_prompt: a short headline and a neutral image-generation prompt for a recreated visual; never depict real named private individuals, and never instruct to copy the source image.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify('SOURCE MATERIAL:\\n' + ($('SRC - Has Content').item.json.text ?? '') + '\\n\\nSOURCE METADATA:\\nsource_name: ' + ($('SRC - Has Content').item.json.source_name ?? '') + '\\nsource_url: ' + ($('SRC - Has Content').item.json.source_url ?? '') + '\\n\\nIMAGE CONTEXT:\\nsource_has_image: ' + ($('SRC - Has Content').item.json.source_has_image ?? false) + '\\nsource_media_type: ' + ($('SRC - Has Content').item.json.source_media_type ?? 'none') + '\\nocr_text: ' + ($('SRC - Has Content').item.json.ocr_text ?? '') + '\\nimage_summary: ' + ($('SRC - Has Content').item.json.image_summary ?? '') + '\\nsuggested_visual_strategy: ' + ($('SRC - Has Content').item.json.recommended_visual_strategy ?? '') + '\\n\\nCopy source_name and source_url from SOURCE METADATA exactly; if a value is empty return an empty string, never invent one.') }}\n    }\n  ],\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"salamtak_news_item\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\n          \"title\",\n          \"script\",\n          \"summary\",\n          \"category\",\n          \"importance\",\n          \"publish\",\n          \"source_name\",\n          \"source_url\",\n          \"image_headline\",\n          \"image_prompt\",\n          \"voiceover\",\n          \"video_hook\",\n          \"visual_type\",\n          \"risk_level\",\n          \"visual_strategy\",\n          \"source_has_image\",\n          \"source_media_type\"\n        ],\n        \"properties\": {\n          \"title\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"script\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"summary\": {\n            \"type\": \"string\"\n          },\n          \"category\": {\n            \"type\": \"string\"\n          },\n          \"importance\": {\n            \"type\": \"integer\",\n            \"minimum\": 1,\n            \"maximum\": 10\n          },\n          \"publish\": {\n            \"type\": \"boolean\"\n          },\n          \"source_name\": {\n            \"type\": \"string\"\n          },\n          \"source_url\": {\n            \"type\": \"string\"\n          },\n          \"image_headline\": {\n            \"type\": \"string\"\n          },\n          \"image_prompt\": {\n            \"type\": \"string\"\n          },\n          \"voiceover\": {\n            \"type\": \"string\"\n          },\n          \"video_hook\": {\n            \"type\": \"string\"\n          },\n          \"visual_type\": {\n            \"type\": \"string\"\n          },\n          \"risk_level\": {\n            \"type\": \"string\"\n          },\n          \"visual_strategy\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"source\",\n              \"recreate\",\n              \"news_card\",\n              \"manual_review\"\n            ]\n          },\n          \"source_has_image\": {\n            \"type\": \"boolean\"\n          },\n          \"source_media_type\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  },\n  \"provider\": {\n    \"require_parameters\": true\n  }\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "name": "AI - Hermes Fallback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        6400,
+        528
+      ],
+      "id": "e36d3867-2558-4c51-a49a-9d5021852b5d",
+      "credentials": {
+        "openRouterApi": {
+          "id": "",
+          "name": "OpenRouter"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate AI Output - strict, no coercion. Accepts an OpenRouter chat completion\n// envelope (choices[0].message.content) or a bare candidate object. Throws on any\n// violation so the whole batch goes to the error output (-> Notify Failed).\nconst FIELDS = ['title','script','summary','category','importance','publish','source_name','source_url','image_headline','image_prompt','voiceover','video_hook','visual_type','risk_level','visual_strategy','source_has_image','source_media_type'];\nconst STRINGS = FIELDS.filter(f => f !== 'importance' && f !== 'publish' && f !== 'source_has_image');\n\nfunction parseContent(content) {\n  if (content && typeof content === 'object') return content;\n  if (typeof content !== 'string') throw new Error('assistant content missing');\n  let s = content.trim();\n  try { return JSON.parse(s); } catch (e) {}\n  const fenced = s.match(/^```(?:json)?\\s*([\\s\\S]*?)\\s*```$/i);\n  if (fenced) { try { return JSON.parse(fenced[1]); } catch (e) {} }\n  throw new Error('assistant content is not valid JSON');\n}\n\nconst results = [];\nfor (const item of $input.all()) {\n  const j = item.json ?? {};\n  const reasons = [];\n  let candidate, model = null;\n  if (j.choices) {\n    model = typeof j.model === 'string' ? j.model : null;\n    const choice = Array.isArray(j.choices) ? j.choices[0] : null;\n    if (!choice) reasons.push('no choices returned');\n    if (choice && choice.finish_reason === 'length') reasons.push('finish_reason=length (truncated)');\n    try { candidate = choice ? parseContent(choice.message?.content) : null; } catch (e) { reasons.push(e.message); }\n  } else if (j.error !== undefined && Object.keys(j).length <= 2) {\n    reasons.push('upstream error item');\n  } else {\n    candidate = j;\n  }\n  if (candidate === null || typeof candidate !== 'object' || Array.isArray(candidate)) {\n    if (!reasons.length) reasons.push('output is not an object');\n  } else {\n    for (const f of FIELDS) if (!Object.prototype.hasOwnProperty.call(candidate, f)) reasons.push('missing ' + f);\n    for (const k of Object.keys(candidate)) if (!FIELDS.includes(k)) reasons.push('unexpected key ' + k);\n    for (const f of STRINGS) if (Object.prototype.hasOwnProperty.call(candidate, f) && typeof candidate[f] !== 'string') reasons.push(f + ' is not a string');\n    if (typeof candidate.title === 'string' && candidate.title.trim().length === 0) reasons.push('title empty');\n    if (typeof candidate.script === 'string' && candidate.script.trim().length === 0) reasons.push('script empty');\n    if (typeof candidate.publish !== 'boolean') reasons.push('publish is not a boolean (' + typeof candidate.publish + ')');\n    if (!Number.isInteger(candidate.importance)) reasons.push('importance is not an integer (' + typeof candidate.importance + ')');\n    else if (candidate.importance < 1 || candidate.importance > 10) reasons.push('importance out of range 1-10');\n  }\n  if (candidate && typeof candidate === 'object' && !Array.isArray(candidate)) {\n    if (typeof candidate.source_has_image !== 'boolean') reasons.push('source_has_image is not a boolean');\n    const VS = ['source','recreate','news_card','manual_review'];\n    if (!VS.includes(candidate.visual_strategy)) reasons.push('visual_strategy not in allowed set');\n  }\n  if (reasons.length) throw new Error('AI output validation failed: ' + reasons.join('; '));\n  const out = {};\n  for (const f of FIELDS) out[f] = candidate[f];\n  out.ai_model = model;\n  results.push({ json: out, pairedItem: item.pairedItem ?? { item: 0 } });\n}\nreturn results;\n"
+      },
+      "name": "AI - Validate Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6720,
+        240
+      ],
+      "id": "7e79d9bb-88ef-4166-9bfe-b03e3231c7df",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d9f7d2e4-6d95-498d-b234-cd061db93a1b",
+              "leftValue": "={{ $json.has_media }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "ac8f90fd-177e-4630-a556-65604de4ffe4",
+              "leftValue": "={{ $json.media_type }}",
+              "rightValue": "photo",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2d6194bb-dfe8-4112-a586-ef73d65f3386",
+      "name": "MEDIA - Has Photo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4304,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "image0",
+        "destinationKey": "b64",
+        "options": {
+          "keepSource": "both"
+        }
+      },
+      "id": "0d5c8365-34ce-4345-96df-aa3baf9f06f6",
+      "name": "MEDIA - Extract Base64",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        4928,
+        464
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://YOUR_SITE"
+            },
+            {
+              "name": "X-Title",
+              "value": "AI Newsroom Vision"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"google/gemini-2.5-flash-lite\",\n  \"temperature\": 0,\n  \"max_tokens\": 800,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a vision analysis assistant inside a news-automation pipeline. Analyze the single provided image. Tasks: (1) OCR: transcribe ALL readable text verbatim in its original language(s); if there is no text, use an empty string. (2) image_summary: 1-2 neutral sentences describing what is visible; do NOT name real private individuals. (3) image_kind: one of news_photo, poster, screenshot, infographic, logo_or_graphic, unknown. (4) sensitive: true if graphic violence or gore, explicit content, or identifiable private individuals shown compromisingly. (5) recommended_visual_strategy: source only for a plain generic photo safe to reuse; recreate if it looks branded or copyrighted from another outlet or is a poster; news_card if mostly text or screenshot or infographic better shown as a branded card; manual_review if unsure or sensitive. Reply ONLY through the provided JSON schema.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"Analyze this image per the schema.\"\n        },\n        {\n          \"type\": \"image_url\",\n          \"image_url\": {\n            \"url\": \"data:{{ ($binary.image0 && $binary.image0.mimeType) || 'image/jpeg' }};base64,{{ $json.b64 }}\"\n          }\n        }\n      ]\n    }\n  ],\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"image_analysis\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\n          \"contains_text\",\n          \"ocr_text\",\n          \"image_summary\",\n          \"image_kind\",\n          \"sensitive\",\n          \"recommended_visual_strategy\"\n        ],\n        \"properties\": {\n          \"contains_text\": {\n            \"type\": \"boolean\"\n          },\n          \"ocr_text\": {\n            \"type\": \"string\"\n          },\n          \"image_summary\": {\n            \"type\": \"string\"\n          },\n          \"image_kind\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"news_photo\",\n              \"poster\",\n              \"screenshot\",\n              \"infographic\",\n              \"logo_or_graphic\",\n              \"unknown\"\n            ]\n          },\n          \"sensitive\": {\n            \"type\": \"boolean\"\n          },\n          \"recommended_visual_strategy\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"source\",\n              \"recreate\",\n              \"news_card\",\n              \"manual_review\"\n            ]\n          }\n        }\n      }\n    }\n  }\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "ed15fad8-8e5e-41d3-b1f6-6c1dd723ca29",
+      "name": "MEDIA - OCR / Vision",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        5232,
+        464
+      ],
+      "credentials": {
+        "openRouterApi": {
+          "id": "",
+          "name": "OpenRouter"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build Merged Context: combine body text, caption, OCR text and image summary\n// from the image branch, and expose image-analysis fields for the editor.\nconst ctx = $('SRC - Has Content').first().json || {};\nlet paths = ctx.media_local_paths;\nif (typeof paths === 'string') { try { paths = JSON.parse(paths); } catch (e) { paths = []; } }\nif (!Array.isArray(paths)) paths = [];\n\n// Vision node output (OpenRouter chat/completions). On failure the fields are absent.\nconst vj = $json || {};\nlet analysis = null;\ntry {\n  const content = vj.choices && vj.choices[0] && vj.choices[0].message && vj.choices[0].message.content;\n  if (content) analysis = JSON.parse(content);\n} catch (e) { analysis = null; }\n\nconst ocrText = analysis && typeof analysis.ocr_text === 'string' ? analysis.ocr_text : '';\nconst ocrStatus = analysis ? 'ok' : 'unavailable';\nconst imageSummary = analysis && analysis.image_summary ? analysis.image_summary : '';\nconst imageKind = analysis && analysis.image_kind ? analysis.image_kind : 'unknown';\nconst sensitive = analysis ? !!analysis.sensitive : false;\nconst recVs = analysis && analysis.recommended_visual_strategy ? analysis.recommended_visual_strategy : '';\n\nconst parts = [];\nif ((ctx.text || '').trim()) parts.push('النص:\\n' + ctx.text.trim());\nif ((ctx.caption || '').trim()) parts.push('التعليق:\\n' + ctx.caption.trim());\nif (ocrText.trim()) parts.push('[نص داخل الصورة / OCR]\\n' + ocrText.trim());\nif (imageSummary.trim()) parts.push('[وصف الصورة]\\n' + imageSummary.trim());\nlet merged = parts.join('\\n\\n');\nif (!merged.trim()) merged = (ctx.caption || ctx.text || '').trim();\n\nreturn [{ json: {\n  text: merged,\n  source_type: ctx.source_type || 'telegram',\n  article_url: ctx.article_url || ctx.source_url || '',\n  source_image_url: ctx.source_image_url || '',\n  publisher: ctx.publisher || '',\n  display_url: ctx.display_url || '',\n  source_name: ctx.source_name || '',\n  source_url: ctx.source_url || '',\n  caption: ctx.caption || '',\n  message_id: ctx.message_id ?? '',\n  preview_channel_name: ctx.preview_channel_name || ctx.channel || '',\n  has_media: true,\n  source_has_image: true,\n  source_media_type: ctx.media_type || 'photo',\n  media_type: ctx.media_type || 'photo',\n  media_count: Number(ctx.media_count || 0),\n  media_group_id: ctx.media_group_id || '',\n  media_local_paths: paths,\n  image_first_ref: paths[0] || '',\n  ocr_text: ocrText,\n  ocr_status: ocrStatus,\n  image_summary: imageSummary,\n  image_kind: imageKind,\n  sensitive: sensitive,\n  recommended_visual_strategy: recVs\n} }];"
+      },
+      "id": "605ecc2a-784f-4d0c-9921-5abc7110803b",
+      "name": "MEDIA - Merge Image Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5520,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Attach Visual Fields: clamp visual_strategy to the allowed set and carry\n// image-review context (OCR, kind, refs) onto the validated editorial item\n// so later phases can show a source preview + OCR snippet + strategy.\nconst ALLOWED = ['source','recreate','news_card','manual_review'];\nlet img = null;\ntry { img = $('MEDIA - Merge Image Context').first().json; } catch (e) { img = null; }\nconst out = [];\nfor (const item of $input.all()) {\n  const j = Object.assign({}, item.json);\n  const hasImg = (j.source_has_image === true) || (img != null);\n  j.source_has_image = !!hasImg;\n  j.source_media_type = j.source_media_type || (img ? img.source_media_type : 'none') || 'none';\n  let vs = j.visual_strategy;\n  if (!ALLOWED.includes(vs)) vs = j.source_has_image ? 'manual_review' : 'news_card';\n  j.visual_strategy = vs;\n  if (img) {\n    j.ocr_text = img.ocr_text || '';\n    j.ocr_status = img.ocr_status || 'ok';\n    j.image_summary = img.image_summary || '';\n    j.image_kind = img.image_kind || 'unknown';\n    j.sensitive = !!img.sensitive;\n    j.media_count = img.media_count || 0;\n    j.media_group_id = img.media_group_id || '';\n    j.media_local_paths = img.media_local_paths || [];\n    j.image_first_ref = img.image_first_ref || '';\n    j.recommended_visual_strategy = img.recommended_visual_strategy || '';\n  } else {\n    j.ocr_text = j.ocr_text || '';\n    j.ocr_status = j.ocr_status || 'none';\n    j.image_summary = j.image_summary || '';\n    j.image_kind = j.image_kind || 'none';\n    j.sensitive = j.sensitive || false;\n    j.media_count = j.media_count || 0;\n    j.media_local_paths = j.media_local_paths || [];\n    j.image_first_ref = '';\n    j.recommended_visual_strategy = j.recommended_visual_strategy || '';\n  }\n  const ocrSnippet = (j.ocr_text || '').replace(/\\s+/g,' ').trim().slice(0,180) || 'none';\n  if (img) { j.message_id = img.message_id != null ? img.message_id : ''; j.preview_channel_name = img.preview_channel_name || ''; } else { j.message_id = j.message_id != null ? j.message_id : ''; j.preview_channel_name = j.preview_channel_name || ''; }\n  j.preview_image_path = j.image_first_ref || '';\n  let src = {};\n  try { src = $('SRC - Has Content').first(0).json || {}; } catch (e) { src = {}; }\n  const esc = (s) => String(s == null ? '' : s).replace(/[_*\\[\\]\\x60]/g, (c) => '\\\\' + c);\n  j.source_type = src.source_type || j.source_type || 'telegram';\n  j.article_url = src.article_url || j.article_url || j.source_url || '';\n  j.display_url = src.display_url || j.article_url || '';\n  j.publisher = src.publisher || '';\n  j.source_image_url = src.source_image_url || '';\n  const isWeb = j.source_type === 'website';\n  const srcHead = isWeb ? ('🌐 Source: ' + (src.source_name || 'website') + (j.publisher && j.publisher !== src.source_name ? ' (' + j.publisher + ')' : '') + '\\n🔗 ' + j.display_url) : ('📡 Source: Telegram — ' + (j.preview_channel_name || src.preview_channel_name || src.publisher || src.channel || 'unknown') + '\\n🆔 Message ID: ' + (j.message_id || ''));\n  j.source_line = isWeb ? ('🌐 ' + esc(src.source_name || 'website') + (j.publisher && j.publisher !== src.source_name ? ' (' + esc(j.publisher) + ')' : '') + '\\n🔗 ' + esc(j.display_url)) : ('📡 Telegram — ' + esc(j.preview_channel_name || src.preview_channel_name || src.publisher || src.channel || 'unknown'));\n  j.preview_caption = srcHead + '\\n🖼 Media: ' + (j.source_media_type || 'none') + ' (' + (j.media_count || 0) + ')' + '\\n📝 OCR: ' + ocrSnippet + '\\n🎯 Suggested visual strategy: ' + j.visual_strategy;\n  j.source_preview_sent = false;\n  out.push({ json: j });\n}\nreturn out;"
+      },
+      "id": "3acb739c-4028-4a95-af98-8dc7be467f17",
+      "name": "AI - Attach Visual Fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7024,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// MEDIA - Prepare Source Image\n// Website articles already carry their downloaded photo as binary \"image0\".\n// Telegram photos must be re-attached from the webhook node because the Set\n// node drops binary data in this n8n build. Both then flow identically.\nconst item = $input.first();\nlet binary = (item.binary && item.binary.image0) ? item.binary : null;\nif (!binary) { try { binary = $('TG - Incoming Webhook').first().binary || {}; } catch (e) { binary = {}; } }\nreturn [{ json: $json, binary }];"
+      },
+      "id": "15759144-c963-495f-a700-4a73e3575699",
+      "name": "MEDIA - Prepare Source Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4624,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Re-attach the source photo(s) so the preview can send the original image.\nlet binary = {};\ntry { binary = $('MEDIA - Prepare Source Image').first().binary || {}; } catch (e) { binary = {}; }\nreturn [{ json: $json, binary }];"
+      },
+      "id": "24f2b4aa-af23-4cc1-bfe2-1a09385cb5b7",
+      "name": "REVIEW - Attach Source Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7904,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d449ede9-19fd-42ad-b948-fbd47760cfeb",
+              "leftValue": "={{ $json.source_media_type }}",
+              "rightValue": "photo",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9a4e238b-e317-4f77-9c2b-9f7e0274ec7a",
+      "name": "REVIEW - Has Source Image?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        8208,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "binaryData": true,
+        "binaryPropertyName": "image0",
+        "additionalFields": {
+          "caption": "={{ $json.preview_caption }}"
+        }
+      },
+      "id": "bf8d712e-6b4d-45ad-8485-1b88f1855336",
+      "name": "REVIEW - Send Source Preview",
+      "webhookId": "e9a0d2ec-0d42-40e4-a087-e011098e2c5e",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        8512,
+        464
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// After the preview send, hand the ORIGINAL editorial item to the approval node.\nreturn [{ json: Object.assign({}, $('EDITORIAL - Publishability Filter').first().json, { source_preview_sent: true }) }];"
+      },
+      "id": "7af77e1e-2fb0-4c7a-96be-6187721c9eee",
+      "name": "REVIEW - Restore Editorial",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8800,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Decide Visual Mode\n// Runs ONLY on the TRUE branch of the human TEXT approval. The approval node\n// outputs just the decision, so the validated editorial item is rebuilt from\n// the Filter node. Decides whether a paid alternative visual may be generated.\nconst CONFIG = {\n  IMAGE_MODEL: 'qwen/qwen-image-3',\n  IMAGE_MODEL_PROVIDER: 'alibaba',\n  IMAGE_MODEL_SUPPORTS_INPUT_REFERENCES: true,\n  IMAGE_ASPECT_RATIO: '4:5',\n  IMAGE_RESOLUTION: '1K',\n  MIN_IMPORTANCE: 5,\n  MAX_REGENERATIONS: 2,\n  GENERATE_FOR_SOURCE_STRATEGY: true\n};\n// [CONFIG-END]\nconst approval = ($json && $json.data && typeof $json.data === 'object') ? $json.data : {};\nlet E = {};\ntry { E = Object.assign({}, $('EDITORIAL - Publishability Filter').first(0).json); } catch (e) { E = Object.assign({}, $json); }\nconst strategy = String(E.visual_strategy || '').trim();\nlet mode = 'skip';\nlet reason = '';\nif (E.publish !== true) { mode = 'skip'; reason = 'publish=false: no paid visual'; }\nelse if (Number(E.importance) < CONFIG.MIN_IMPORTANCE) { mode = 'skip'; reason = 'importance ' + E.importance + ' < ' + CONFIG.MIN_IMPORTANCE + ': no paid visual'; }\nelse if (strategy === 'manual_review') { mode = 'manual_review'; reason = 'visual_strategy=manual_review'; }\nelse if (strategy === 'source') {\n  mode = CONFIG.GENERATE_FOR_SOURCE_STRATEGY ? 'generate' : 'skip';\n  reason = CONFIG.GENERATE_FOR_SOURCE_STRATEGY ? 'visual_strategy=source: optional alternate visual enabled' : 'visual_strategy=source: source image stays eligible, no generation';\n}\nelse if (strategy === 'recreate' || strategy === 'news_card') { mode = 'generate'; reason = 'visual_strategy=' + strategy; }\nelse { mode = 'manual_review'; reason = 'unknown visual_strategy \"' + strategy + '\"'; }\nconst responder = approval.responder || {};\nconst out = Object.assign(E, {\n  text_approved: approval.approved === true,\n  text_approved_by: responder.name || responder.username || responder.id || '',\n  text_approval_message_id: approval.messageId != null ? approval.messageId : '',\n  text_approved_at: approval.respondedAt || '',\n  visual_mode: mode,\n  visual_mode_reason: reason,\n  visual_route_index: mode === 'generate' ? 0 : (mode === 'manual_review' ? 1 : 2),\n  selected_visual: mode === 'skip' ? (strategy === 'source' ? 'source' : 'none') : 'pending',\n  image_generation_attempt: 0,\n  max_regenerations: CONFIG.MAX_REGENERATIONS,\n  max_generation_attempts: 1 + CONFIG.MAX_REGENERATIONS,\n  image_model: CONFIG.IMAGE_MODEL,\n  image_model_provider: CONFIG.IMAGE_MODEL_PROVIDER,\n  image_model_supports_input_references: CONFIG.IMAGE_MODEL_SUPPORTS_INPUT_REFERENCES,\n  image_aspect_ratio: CONFIG.IMAGE_ASPECT_RATIO,\n  image_resolution: CONFIG.IMAGE_RESOLUTION,\n  generated_visual_kind: 'illustrative',\n  illustrative_overlay_text: 'صورة توضيحية',\n  illustrative_overlay_required: true,\n  image_cost_total: 0,\n  generation_history: [],\n  generation_failed: false\n});\nreturn [{ json: out }];"
+      },
+      "id": "4eb6ca61-fc87-45cf-8583-3bb4b22997d1",
+      "name": "GEN - Decide Visual Mode",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10000,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 3,
+        "output": "={{ $json.visual_route_index }}"
+      },
+      "id": "9438a1cf-e9ea-4a64-9368-ad0af92716bd",
+      "name": "GEN - Route Visual Mode",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        10304,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Build Image Prompt\n// Builds the OpenRouter /api/v1/images request from VALIDATED editorial fields\n// only (no execution metadata, no credentials). The attempt number comes from\n// this node's own run index ($runIndex), so it cannot be spoofed by upstream\n// data and regeneration loops stay bounded.\nconst j = Object.assign({}, $json);\ndelete j.image_request_body;\ndelete j.generated_image_b64;\nconst attempt = $runIndex + 1;\nconst maxAttempts = Number(j.max_generation_attempts || 3);\nif (attempt > maxAttempts) throw new Error('generation attempt ' + attempt + ' exceeds limit ' + maxAttempts);\nconst strategy = String(j.visual_strategy || 'news_card');\nconst risk = String(j.risk_level || 'low').toLowerCase();\nconst category = String(j.category || '').trim();\nconst SENSITIVE_CATEGORIES = ['أمني', 'سياسي'];\nconst SENSITIVE_WORDS = ['قتل', 'مقتل', 'قتلى', 'اغتيال', 'انفجار', 'تفجير', 'هجوم', 'اشتباك', 'قصف', 'غارة', 'اعتقال', 'جريمة', 'حادث', 'إصابة', 'جرحى', 'مسلح', 'ميليشيا', 'عبوة', 'صاروخ', 'مسيرة', 'حرب', 'عسكري', 'قوات', 'شرطة', 'محكمة', 'إعدام', 'مظاهرة', 'احتجاج', 'وزير', 'رئيس', 'برلمان', 'انتخابات', 'فساد', 'خطف', 'اختطاف', 'حريق', 'سقوط ضحايا'];\nconst scanText = [j.title, j.summary].join(' ');\nconst wordHit = SENSITIVE_WORDS.find(w => scanText.includes(w)) || '';\nconst sensitiveTopic = risk === 'high' || risk === 'medium' || j.sensitive === true || SENSITIVE_CATEGORIES.includes(category) || !!wordHit;\nconst reasonParts = [];\nif (risk === 'high' || risk === 'medium') reasonParts.push('risk_level=' + risk);\nif (j.sensitive === true) reasonParts.push('vision flagged sensitive');\nif (SENSITIVE_CATEGORIES.includes(category)) reasonParts.push('category=' + category);\nif (wordHit) reasonParts.push('keyword \"' + wordHit + '\"');\n\nconst clip = (s, n) => String(s || '').replace(/\\s+/g, ' ').trim().slice(0, n);\nconst lines = [];\nif (sensitiveTopic) {\n  lines.push('Create a clearly illustrative editorial visual representing the topic without depicting unverified specific events.');\n  lines.push('This is NOT a documentary photograph: do not fabricate casualties, injuries, weapons, destruction, damage, crowds, identifiable officials, real people, uniforms, vehicles or exact locations.');\n  lines.push('Do not imitate any source photograph. Do not stage a scene from the event.');\n  lines.push('No text, no letters, no numbers, no logos, no watermarks, no captions, no flags of real countries, no recognizable faces.');\n  lines.push('Use a neutral symbolic editorial composition: abstract shapes, soft gradients, generic institutional architecture, symbolic objects, unlabeled map-like textures, or calm conceptual imagery that conveys the category of the news without showing a specific incident.');\n  lines.push('Vertical 4:5 composition. Keep the upper third simple and uncluttered, reserved for a headline overlay that will be added later.');\n  lines.push('Topic for context only (never render as text): ' + clip(j.title, 200) + '.');\n  lines.push('News category: ' + (category || 'general') + '.');\n} else {\n  lines.push('Create a polished editorial news visual suitable for an Iraqi news social-media page.');\n  lines.push('The visual must be original and must not reproduce logos, watermarks, captions, or the exact copyrighted layout of any reference.');\n  lines.push('No embedded text of any kind: no letters, numbers, captions, signage text, logos or watermarks. No fake quotes. No misleading documentary claims. No recognizable real people.');\n  lines.push('Clean composition with the upper third kept simple and uncluttered, reserved for a headline overlay that will be added later.');\n  lines.push('Vertical 4:5 composition, high quality, natural lighting, realistic editorial photography or a clean modern editorial illustration, whichever suits the topic.');\n  lines.push('Factual visual context from the validated article: topic: ' + clip(j.title, 200) + '. Summary: ' + clip(j.summary, 400) + '. Category: ' + (category || 'general') + '.');\n  if (j.image_prompt) lines.push('Suggested scene (adapt freely, keep it generic and non-documentary): ' + clip(j.image_prompt, 400));\n}\nif (strategy === 'news_card') {\n  lines.push('Style: a clean contextual background or editorial illustration with soft depth and generous negative space; no headline text (typography and branding are added later by the publishing system).');\n}\n// Reference image: only for \"recreate\", only when the model advertises\n// input_references, never for sensitive topics, and never to copy the source.\nlet useRef = false;\nlet refDataUrl = null;\nlet refNote = '';\nif (strategy === 'recreate') {\n  if (sensitiveTopic) refNote = 'reference skipped: sensitive topic (illustrative only)';\n  else if (j.image_model_supports_input_references !== true) refNote = 'reference skipped: model has no input_references';\n  else if (String(j.source_media_type) !== 'photo') refNote = 'reference skipped: source has no photo';\n  else {\n    let b64 = '';\n    let mime = 'image/jpeg';\n    try { b64 = String($('MEDIA - Extract Base64').first(0).json.b64 || ''); } catch (e) { b64 = ''; }\n    try { const bin = $('MEDIA - Prepare Source Image').first(0).binary || {}; if (bin.image0 && bin.image0.mimeType) mime = String(bin.image0.mimeType); } catch (e) {}\n    b64 = b64.replace(/^data:[^,]+,/, '').replace(/\\s+/g, '');\n    if (!b64) refNote = 'reference skipped: source image bytes unavailable';\n    else if (b64.length > 8 * 1024 * 1024) refNote = 'reference skipped: source image too large';\n    else { useRef = true; refDataUrl = 'data:' + mime + ';base64,' + b64; refNote = 'reference attached (' + mime + ', ' + Math.round(b64.length * 3 / 4 / 1024) + ' KB)'; }\n  }\n  if (useRef) {\n    lines.push('A reference image is attached. Use it ONLY for the general subject, broad composition, scene category and color palette.');\n    lines.push('Create a new, different image: do not copy it, do not reproduce its watermark, channel logo, embedded text, people, or exact pixel composition, and do not present the result as the same documentary moment.');\n  } else if (j.image_summary) {\n    lines.push('Scene inspiration (text only, from the image analysis): ' + clip(j.image_summary, 300));\n  }\n}\nconst prompt = lines.join('\\n');\nconst body = { model: j.image_model, prompt: prompt, n: 1 };\nif (j.image_aspect_ratio) body.aspect_ratio = j.image_aspect_ratio;\nif (j.image_resolution) body.resolution = j.image_resolution;\nif (useRef) body.input_references = [{ type: 'image_url', image_url: { url: refDataUrl } }];\nreturn [{ json: Object.assign(j, {\n  image_generation_attempt: attempt,\n  image_prompt_mode: sensitiveTopic ? 'illustrative_sensitive' : 'editorial',\n  image_prompt_sensitive_reason: reasonParts.join(', '),\n  image_prompt_final: prompt,\n  generated_from_reference: useRef,\n  reference_note: refNote,\n  image_request_body: body,\n  generation_failed: false,\n  generation_error: ''\n}) }];"
+      },
+      "id": "2a2cf03f-54d6-490e-a2ed-572bc5222a4c",
+      "name": "GEN - Build Image Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10608,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/images",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://YOUR_SITE"
+            },
+            {
+              "name": "X-Title",
+              "value": "AI Newsroom Images"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.image_request_body) }}",
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "id": "c5ec8ae5-3e97-44c4-b9ff-c5f0362259ab",
+      "name": "GEN - OpenRouter Image Generation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        10912,
+        240
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "openRouterApi": {
+          "id": "",
+          "name": "OpenRouter"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Validate Image Response\n// Strict checks on the OpenRouter /images response before anything is decoded.\n// Throws on any violation -> error output -> Handle Generation Failure.\nconst resp = $json || {};\nlet E = {};\ntry { E = Object.assign({}, $('GEN - Build Image Prompt').first(0).json); } catch (e) { E = {}; }\ndelete E.image_request_body;\nconst fail = (m) => { throw new Error('image response invalid - ' + String(m).replace(/:/g, ' -')); };\nif (resp.error) fail(typeof resp.error === 'string' ? resp.error : (resp.error.message || JSON.stringify(resp.error)));\nconst arr = Array.isArray(resp.data) ? resp.data : null;\nif (!arr || !arr.length) fail('no data array in response');\nconst first = arr[0] || {};\nconst b64raw = first.b64_json;\nif (typeof b64raw !== 'string' || !b64raw.trim()) fail('data[0].b64_json is empty');\nlet b64 = b64raw.trim();\nlet mediaFromUrl = null;\nconst m = b64.match(/^data:([a-z0-9.+\\/-]+);base64,(.*)$/i);\nif (m) { mediaFromUrl = m[1].toLowerCase(); b64 = m[2]; }\nb64 = b64.replace(/\\s+/g, '');\nif (!/^[A-Za-z0-9+\\/]+={0,2}$/.test(b64)) fail('b64_json is not valid base64');\nconst bytes = Math.floor(b64.length * 3 / 4) - (b64.endsWith('==') ? 2 : (b64.endsWith('=') ? 1 : 0));\nconst MIN_BYTES = 20 * 1024;\nconst MAX_BYTES = 15 * 1024 * 1024;\nif (bytes < MIN_BYTES) fail('decoded image too small: ' + bytes + ' bytes');\nif (bytes > MAX_BYTES) fail('decoded image too large: ' + bytes + ' bytes');\nconst head = Buffer.from(b64.slice(0, 64), 'base64');\nlet sniffed = null;\nif (head[0] === 0x89 && head[1] === 0x50 && head[2] === 0x4e && head[3] === 0x47) sniffed = 'image/png';\nelse if (head[0] === 0xff && head[1] === 0xd8) sniffed = 'image/jpeg';\nelse if (head.slice(0, 4).toString('ascii') === 'RIFF' && head.slice(8, 12).toString('ascii') === 'WEBP') sniffed = 'image/webp';\nlet declared = String(first.media_type || first.mime_type || mediaFromUrl || '').toLowerCase();\nif (declared === 'image/jpg') declared = 'image/jpeg';\nconst media = sniffed || declared;\nconst SUPPORTED = ['image/png', 'image/jpeg', 'image/webp'];\nif (!SUPPORTED.includes(media)) fail('unsupported media type: ' + (media || 'unknown'));\nlet width = null;\nlet height = null;\ntry {\n  if (sniffed === 'image/png' && head.length >= 24) { width = head.readUInt32BE(16); height = head.readUInt32BE(20); }\n  else if (sniffed === 'image/jpeg') {\n    const buf = Buffer.from(b64, 'base64');\n    let i = 2;\n    while (i + 9 < buf.length) {\n      if (buf[i] !== 0xff) { i++; continue; }\n      const marker = buf[i + 1];\n      if (marker === 0xff) { i++; continue; }\n      if (marker === 0xd8 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) { i += 2; continue; }\n      const len = buf.readUInt16BE(i + 2);\n      if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) { height = buf.readUInt16BE(i + 5); width = buf.readUInt16BE(i + 7); break; }\n      i += 2 + len;\n    }\n  }\n  else if (sniffed === 'image/webp' && head.length >= 30 && head.slice(12, 16).toString('ascii') === 'VP8X') {\n    width = 1 + (head[24] | (head[25] << 8) | (head[26] << 16));\n    height = 1 + (head[27] | (head[28] << 8) | (head[29] << 16));\n  }\n} catch (e) { width = null; height = null; }\nif (width && height && (width < 256 || height < 256)) fail('decoded image dimensions too small: ' + width + 'x' + height);\nconst cost = (resp.usage && typeof resp.usage.cost === 'number') ? resp.usage.cost : null;\nconst model = String(resp.model || E.image_model || '');\nconst attempt = Number(E.image_generation_attempt || 0);\nconst ext = media === 'image/png' ? 'png' : (media === 'image/webp' ? 'webp' : 'jpg');\nconst history = Array.isArray(E.generation_history) ? E.generation_history.slice() : [];\nhistory.push({ attempt: attempt, failed: false, model: model, cost: cost, media_type: media, bytes: bytes, width: width, height: height, from_reference: E.generated_from_reference === true, at: new Date().toISOString() });\nreturn [{ json: Object.assign(E, {\n  generated_image_b64: b64,\n  generated_image_model: model,\n  generated_image_provider: String(resp.provider || E.image_model_provider || ''),\n  generated_image_media_type: media,\n  generated_image_declared_media_type: declared,\n  generated_image_bytes: bytes,\n  generated_image_width: width,\n  generated_image_height: height,\n  generated_image_file_name: 'salamtak_generated_' + (E.message_id || 'item') + '_a' + attempt + '.' + ext,\n  generated_image_cost: cost,\n  image_cost_total: Number(E.image_cost_total || 0) + (cost || 0),\n  generated_visual_kind: 'illustrative',\n  generated_from_reference: E.generated_from_reference === true,\n  illustrative_overlay_text: 'صورة توضيحية',\n  illustrative_overlay_required: true,\n  generation_history: history,\n  generation_failed: false\n}) }];"
+      },
+      "id": "0fd0ab5e-ef2c-42d3-9935-9a6da0a04cce",
+      "name": "GEN - Validate Generated Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11200,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "generated_image_b64",
+        "binaryPropertyName": "generated_image",
+        "options": {
+          "fileName": "={{ $json.generated_image_file_name }}",
+          "mimeType": "={{ $json.generated_image_media_type }}"
+        }
+      },
+      "id": "50175944-eb06-4264-a6c0-0271b3cefa59",
+      "name": "GEN - Decode Image",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        11504,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Attach Generated Image\n// Convert to File drops the JSON, so re-attach the validated editorial item\n// (without the base64 payload) to the decoded binary and build the caption.\nlet E = {};\ntry { E = Object.assign({}, $('GEN - Validate Generated Image').first(0).json); } catch (e) { throw new Error('validated image metadata unavailable'); }\ndelete E.generated_image_b64;\ndelete E.image_request_body;\nconst binary = ($input.first() && $input.first().binary) || {};\nif (!binary.generated_image) throw new Error('generated_image binary missing after decode');\ndelete binary.overlay_badge;\nconst gb = binary.generated_image || {};\nE.generated_image_overlay_applied = true;\nE.generated_image_overlay_text = 'صورة توضيحية';\nif (gb.mimeType) E.generated_image_media_type = String(gb.mimeType);\nif (gb.fileName) E.generated_image_file_name = String(gb.fileName);\nconst cost = (typeof E.generated_image_cost === 'number') ? ('$' + E.generated_image_cost.toFixed(4)) : 'n/a';\nconst total = '$' + Number(E.image_cost_total || 0).toFixed(4);\nconst clip = (s, n) => String(s || '').replace(/\\s+/g, ' ').trim().slice(0, n);\nconst caption = [\n  '🎨 تم تجهيز الصورة البديلة — محاولة ' + E.image_generation_attempt + '/' + E.max_generation_attempts,\n  '📡 Source: ' + clip(E.source_name || E.preview_channel_name || 'unknown', 80),\n  '📰 ' + clip(E.title, 160),\n  '🎯 Strategy: ' + E.visual_strategy + (E.generated_from_reference ? ' (with source reference)' : ' (prompt only)'),\n  '🤖 Model: ' + E.generated_image_model,\n  '💰 Cost: ' + cost + ' (total ' + total + ')',\n  '📐 ' + (E.generated_image_width && E.generated_image_height ? (E.generated_image_width + 'x' + E.generated_image_height) : 'size n/a') + ' ' + E.generated_image_media_type,\n  '🏷 Overlay: صورة توضيحية (applied)',\n  '⚠️ صورة توضيحية مولدة بالذكاء الاصطناعي',\n  '👇 اختر الآن الصورة التي تريد نشر الخبر بها (في الرسالة التالية)'\n].join('\\n').slice(0, 1000);\nE.generated_image_caption = caption;\nreturn [{ json: E, binary: binary }];"
+      },
+      "id": "417b8e37-f043-4e45-9797-7cb6561a9fe7",
+      "name": "GEN - Attach Generated Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        12400,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "binaryData": true,
+        "binaryPropertyName": "generated_image",
+        "additionalFields": {
+          "caption": "={{ $json.generated_image_caption }}"
+        }
+      },
+      "id": "8b8d4b18-034e-4b8f-b97d-000ba42a18aa",
+      "name": "VREVIEW - Send Generated Preview",
+      "webhookId": "c68bf281-5869-4501-a3af-856c2afbe50f",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13008,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Handle Generation Failure\n// Any failure after the prompt was built lands here (HTTP error, invalid\n// response, decode or preview-send failure). The editorial item and the\n// original source-image references are preserved; nothing is published.\nconst errItem = $json || {};\nlet E = {};\ntry { E = Object.assign({}, $('GEN - Build Image Prompt').first(0).json); } catch (e) { E = Object.assign({}, errItem); }\ndelete E.image_request_body;\ndelete E.generated_image_b64;\nlet msg = '';\nconst err = errItem.error;\nif (typeof err === 'string') msg = err;\nelse if (err && typeof err === 'object') msg = [err.description, err.message].filter(Boolean).join(' | ') || JSON.stringify(err);\nelse if (errItem.message) msg = String(errItem.message);\nelse msg = 'unknown error';\nmsg = String(msg).replace(/\\s+/g, ' ').slice(0, 300);\nconst stage = $prevNode.name;\nconst attempt = Number(E.image_generation_attempt || 0);\nconst history = Array.isArray(E.generation_history) ? E.generation_history.slice() : [];\nhistory.push({ attempt: attempt, failed: true, stage: stage, error: msg, at: new Date().toISOString() });\nconst text = [\n  '⚠️ Visual generation failed',\n  '📰 ' + String(E.title || '').slice(0, 160),\n  '🎯 Strategy: ' + E.visual_strategy + ' | attempt ' + attempt + '/' + E.max_generation_attempts,\n  '🤖 Model: ' + E.image_model,\n  '📍 Stage: ' + stage,\n  '❗ ' + msg,\n  '🖼 The original source image is still available. Nothing was published.'\n].join('\\n');\nreturn [{ json: Object.assign(E, { generation_failed: true, generation_error: msg, generation_failed_stage: stage, generation_history: history, generation_failure_text: text }) }];"
+      },
+      "id": "4c1a3edb-b0eb-4dae-b0c3-ef25e498fbed",
+      "name": "GEN - Handle Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11200,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "={{ $json.generation_failure_text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d68e1d0d-b143-4d35-b923-1a73d5868cc4",
+      "name": "ERR - Notify Generation Failed",
+      "webhookId": "042e87a1-304c-4a2e-b4dd-4ddf1ed6ca57",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11504,
+        624
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Prepare Visual Review\n// Rebuilds the editorial + generation state for the human visual review.\n// Reached from the generated preview (success) or from the failure\n// notification (failure); which one is decided by the feeding node.\nconst from = $prevNode.name;\nlet E = {};\nif (from === 'ERR - Notify Generation Failed') {\n  try { E = Object.assign({}, $('GEN - Handle Failure').first(0).json); } catch (e) { throw new Error('failure state unavailable'); }\n} else {\n  try { E = Object.assign({}, $('GEN - Attach Generated Image').first(0).json); } catch (e) { throw new Error('generated image state unavailable'); }\n}\ndelete E.generated_image_b64;\ndelete E.image_request_body;\nconst esc = (s) => String(s == null ? '' : s).replace(/[_*\\[\\]\\x60]/g, (c) => '\\\\' + c);\nconst attempt = Number(E.image_generation_attempt || 0);\nconst maxA = Number(E.max_generation_attempts || 3);\nconst remaining = Math.max(0, maxA - attempt);\n// Source-image availability comes from the preserved media state: the source\n// photo must exist as binary image0 on MEDIA - Prepare Source Image.\nlet hasSource = String(E.source_media_type) === 'photo';\nif (hasSource) { try { const b = $('MEDIA - Prepare Source Image').first(0).binary; hasSource = !!(b && b.image0); } catch (e) { hasSource = false; } }\nconst cost = (typeof E.generated_image_cost === 'number') ? '$' + E.generated_image_cost.toFixed(4) : 'n/a';\nconst total = '$' + Number(E.image_cost_total || 0).toFixed(4);\nconst failed = E.generation_failed === true;\nconst variant = failed ? (hasSource ? 2 : 3) : (hasSource ? 0 : 1);\nconst opts = [];\nif (!failed) opts.push('🚀 نشر بالصورة المولدة');\nif (hasSource) opts.push('🖼 نشر بالصورة الأصلية');\nopts.push('🔄 توليد صورة ثانية (' + remaining + ' متبقية)');\nopts.push('❌ إلغاء الخبر');\nlet message;\nif (failed) {\n  message = [\n    '⚠️ *فشل توليد الصورة* — ' + esc(String(E.title || '').slice(0, 120)),\n    '🎯 ' + esc(E.visual_strategy) + ' | محاولة ' + attempt + '/' + maxA + ' | ❗ ' + esc(String(E.generation_error || '').slice(0, 160)),\n    '',\n    'اختر الإجراء النهائي:',\n    hasSource ? 'الصورة الأصلية ما زالت متاحة: يمكنك نشر الخبر بها، أو توليد صورة ثانية، أو إلغاء الخبر.' : 'لا توجد صورة أصلية لهذا الخبر، لذلك يمكنك إعادة توليد الصورة أو إلغاء الخبر.',\n  ].concat(opts).concat([\n    '',\n    '⚠️ اختيار \"نشر\" سيرسل الخبر فعلياً إلى Postiz ثم Facebook وTelegram.',\n    '👇 اضغط الزر أدناه لفتح نموذج الاختيار.'\n  ]).join('\\n');\n} else {\n  message = [\n    '🖼 *مراجعة الصورة* — ' + esc(String(E.title || '').slice(0, 120)),\n    '🎯 ' + esc(E.visual_strategy) + ' | محاولة ' + attempt + '/' + maxA + ' | 🤖 ' + esc(E.generated_image_model) + ' | 💰 ' + cost + ' (total ' + total + ')',\n    '',\n    'تم تجهيز الصورة البديلة.',\n    '',\n    'اختر الإجراء النهائي:',\n    hasSource ? 'يمكنك نشر الخبر بالصورة الأصلية أو بالصورة المولدة (صورة توضيحية)، أو توليد صورة ثانية، أو إلغاء الخبر.' : 'لا توجد صورة أصلية لهذا الخبر، لذلك يمكنك نشر الصورة المولدة أو إعادة توليدها.',\n  ].concat(opts).concat([\n    '',\n    '⚠️ اختيار \"نشر\" سيرسل الخبر فعلياً إلى Postiz ثم Facebook وTelegram.',\n    '👇 اضغط الزر أدناه لفتح نموذج الاختيار.'\n  ]).join('\\n');\n}\nconst formDescription = '⚠️ اختيار أحد خياري النشر سيُرسل الخبر فعلياً إلى Postiz ثم Facebook وTelegram. | ' + String(E.title || '').slice(0, 150) + ' | attempt ' + attempt + '/' + maxA + (E.generation_failed ? ' | generation FAILED' : '');\nreturn [{ json: Object.assign(E, { visual_review_message: message, visual_review_form_description: formDescription, visual_review_round: $runIndex + 1, has_source_image: hasSource, review_variant: variant }) }];"
+      },
+      "id": "3cff0c9e-364e-4646-bc15-b4f10028d546",
+      "name": "VREVIEW - Prepare Review",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        13312,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "output": "={{ $json.review_variant }}"
+      },
+      "id": "4945f250-add5-4658-9562-b210e8055316",
+      "name": "VREVIEW - Review Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        13600,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "message": "={{ $json.visual_review_message }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "القرار",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "🖼 نشر بالصورة الأصلية"
+                  },
+                  {
+                    "option": "🔄 توليد صورة ثانية"
+                  },
+                  {
+                    "option": "❌ إلغاء الخبر"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "messageButtonLabel": "👉 اختيار الصورة والنشر (الخطوة الأخيرة)",
+          "responseFormTitle": "الخطوة الأخيرة — اختيار الصورة والنشر",
+          "responseFormDescription": "={{ $json.visual_review_form_description }}",
+          "responseFormButtonLabel": "تأكيد الاختيار",
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 12
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "61cb8a47-fd07-484b-b297-0cf495fd89dd",
+      "name": "VREVIEW - Visual Review (after failure)",
+      "webhookId": "1767fc72-499d-41a0-8956-32e9c429943b",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13904,
+        432
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "message": "={{ $json.visual_review_message }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "القرار",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "🚀 نشر بالصورة المولدة"
+                  },
+                  {
+                    "option": "🖼 نشر بالصورة الأصلية"
+                  },
+                  {
+                    "option": "🔄 توليد صورة ثانية"
+                  },
+                  {
+                    "option": "❌ إلغاء الخبر"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "messageButtonLabel": "👉 اختيار الصورة والنشر (الخطوة الأخيرة)",
+          "responseFormTitle": "الخطوة الأخيرة — اختيار الصورة والنشر",
+          "responseFormDescription": "={{ $json.visual_review_form_description }}",
+          "responseFormButtonLabel": "تأكيد الاختيار",
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 12
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "7679a6f1-6daa-43bb-aa56-5b26fe401975",
+      "name": "VREVIEW - Visual Review",
+      "webhookId": "40f2ab19-53ed-448d-a97b-04a02a40afdf",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13904,
+        112
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Parse Visual Decision\n// Normalises the review form answer into one of: use_generated, use_original,\n// regenerate, reject; anything else (timeout, stale/invalid response) or a\n// regeneration past the limit is routed to manual review. Never publishes.\nconst j = $json || {};\nlet E = {};\ntry { E = Object.assign({}, $('VREVIEW - Prepare Review').first(0).json); } catch (e) { E = {}; }\ndelete E.generated_image_b64;\ndelete E.image_request_body;\nconst d = (j.data && typeof j.data === 'object') ? j.data : null;\nlet raw = '';\nif (d) {\n  for (const v of Object.values(d)) { if (typeof v === 'string' && /Use generated|Use original|Regenerate|Retry|Reject|بالصورة المولدة|بالصورة الأصلية|توليد صورة|إعادة المحاولة|إلغاء الخبر/i.test(v)) { raw = v; break; } }\n  if (!raw && typeof d['القرار'] === 'string') raw = d['القرار'];\n}\nlet decision;\nif (!d) decision = 'timeout';\nelse if (/use generated|بالصورة المولدة/i.test(raw)) decision = 'use_generated';\nelse if (/use original|بالصورة الأصلية/i.test(raw)) decision = 'use_original';\nelse if (/regenerate|retry|توليد صورة|إعادة المحاولة/i.test(raw)) decision = 'regenerate';\nelse if (/reject|إلغاء الخبر/i.test(raw)) decision = 'reject';\nelse decision = 'invalid';\nconst maxAttempts = Number(E.max_generation_attempts || 3);\nconst attempt = Number(E.image_generation_attempt || 0);\nconst reviewRound = $runIndex + 1;\nlet route = decision;\nlet note = '';\nif (decision === 'use_generated' && (E.generation_failed === true || !E.generated_image_media_type)) { route = 'manual_review'; note = '\"use generated\" chosen but no generated image exists'; }\nif (decision === 'regenerate' && (attempt >= maxAttempts || reviewRound >= maxAttempts)) { route = 'manual_review'; note = 'regeneration limit reached (' + attempt + '/' + maxAttempts + ' generations, ' + (maxAttempts - 1) + ' regenerations max)'; }\nif (decision === 'timeout') { route = 'manual_review'; note = 'visual review timed out without a decision'; }\nif (decision === 'invalid') { route = 'manual_review'; note = 'unrecognised review response: ' + String(raw).slice(0, 60); }\nif (decision === 'use_original' && String(E.source_media_type) !== 'photo') { note = '\"use original\" chosen but the source has no photo; publishing text only'; }\nconst idx = { use_generated: 0, use_original: 1, regenerate: 2, reject: 3, manual_review: 4 }[route];\nconst selected = route === 'use_generated' ? 'generated' : (route === 'use_original' ? (String(E.source_media_type) === 'photo' ? 'source' : 'none') : (route === 'reject' ? 'none' : 'pending'));\nreturn [{ json: Object.assign(E, {\n  visual_decision_raw: raw,\n  visual_decision: decision,\n  visual_route: route,\n  visual_route_index: idx,\n  visual_route_note: note,\n  selected_visual: selected,\n  visual_reviewed_at: (d && d.respondedAt) || '',\n  visual_review_round: reviewRound\n}) }];"
+      },
+      "id": "db8b905f-a887-43ec-b790-cf2cc2d9602b",
+      "name": "VREVIEW - Parse Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14224,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "numberOutputs": 5,
+        "output": "={{ $json.visual_route_index }}"
+      },
+      "id": "e27c0280-f427-447a-a17c-4bd5d8ccb565",
+      "name": "VREVIEW - Route Decision",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        14528,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// V3: Restore For Publish\n// Hands the approved editorial item, plus the visual decision, to the existing\n// publishing chain unchanged. Postiz still publishes text only in V3; the\n// generated image never reaches it automatically (selected_visual is recorded\n// for the next phase).\nconst j = Object.assign({}, $json);\ndelete j.generated_image_b64;\ndelete j.image_request_body;\ndelete j.visual_review_message;\nj.v3_visual_stage = 'complete';\nreturn [{ json: j }];"
+      },
+      "id": "0e9d4422-ae87-4ec7-8357-38c2e3549a50",
+      "name": "PUB - Restore Article",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16608,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=❌ تم إلغاء الخبر ولم يتم نشره\n📰 {{ String($json.title || '').slice(0, 160).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n🎯 Strategy: {{ String($json.visual_strategy || '').replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }} | generated versions: {{ ($json.generation_history || []).filter(h => !h.failed).length }} | cost total {{ Number($json.image_cost_total || 0).toFixed(4) }} USD\n⛔ لم يتم النشر",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "39c7c6d0-7f8f-4f99-bd42-2037e111cc57",
+      "name": "ERR - Notify Visual Rejected",
+      "webhookId": "92c94907-a4f9-47e6-ae20-405042c424c0",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14832,
+        1200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "={{ $json.visual_decision === 'timeout' ? '⏰ انتهت مهلة مراجعة الصورة ولم يتم نشر الخبر.' : '⚠️ الخبر يحتاج مراجعة يدوية للصورة ولم يتم نشره.' }}\n📰 {{ String($json.title || '').slice(0, 160).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n🎯 Strategy: {{ String($json.visual_strategy || '').replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }} | generated versions: {{ ($json.generation_history || []).filter(h => !h.failed).length }} | cost total {{ Number($json.image_cost_total || 0).toFixed(4) }} USD\nℹ️ {{ String($json.visual_route_note || $json.visual_mode_reason || '').replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n⛔ لم يتم النشر",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "9f3b82e5-e245-4680-9674-5f84b924aeca",
+      "name": "ERR - Notify Manual Review",
+      "webhookId": "c28eb91b-bf33-41af-8123-645570b9ce7a",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14528,
+        1200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V4: Load Overlay Badge\n// Attaches the pre-rendered \"صورة توضيحية\" label (PNG with alpha, 242x60,\n// rendered once with proper Arabic shaping) as binary \"overlay_badge\" and\n// computes a fixed lower-right position from the validated image size.\n// Only generated visuals pass through here; source images are never touched.\nconst BADGE_B64 = 'iVBORw0KGgoAAAANSUhEUgAAAPIAAAA8CAYAAABciudgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAhkSURBVHhe7ZzPaxZHGMdfMCC8h4pCoJ5ykZJDAkHEFjwE0qCooRIoEqlehBLRgxfhPbSXgthC8PKCkAgNRUm0msQkb9LkECIBX0R7qSglhCJSFKTe+gfMlm/aTSdfZ2Ynb/bdnY3PA5/guzs7P5/vPDOz72up5GlRFO1VSh2q1+vnl5eXL8/Pz38/Ozv7oyAI6QBNQVvQmFLqU6VUK+uwIYuiaNe7d+8OoYBqtXqrv7//l66urpn29vYHra2t90ql0pggCOkATUFb0FhfX9/i0NDQ7bm5uesvX77shhZZn16mlGqbmpr64cyZM9MiWkHIhz179vx86tSpmcnJyetv377tZJ06bW1t7bNKpXJXBCwIYQBBDw4O3nv69OkXrFejIeHZs2fvc0aCIOTP0aNHp5aWli45l9qIxCJiQQibnp6eyXq9/iXrd91ev379yZUrV+7wQ4IghAcCLgLvJhEjTGMzjXU4PyAIQni0tLSMj46O3oyiqLwhZLxiwuk0JxYEIVx6e3tnV1dXj28IGe+qJBoLQrFAVB4fHx9RSu3Gsvrjq1evvpdIEITwuXjx4oRS6pPSq1evek6cOFHjBIIghM/hw4dnnzx58lVpZWXlQkdHh+yPBaGAtLW1TSwuLn5Twh984ASCIIRPuVy+U6vVqiX8wQdOIAhCMcAvp0rrfww3BUEoBiJkQdgBiJAFYQcgQhaEHUDuQj527NhCpBk+47p+7dq1a7/yc0KYPHr06M943PBv2zUhXUTIQqqYRGu6JqSLCFlIFZNoTdeEdMldyB8ymKA2Zqsoivh+FpgmUtM1fk4ICxFyjoiQhbQQIeeICFlIi2CFrO+rZI9cPAYHB1fm5ub+2Ldvn/zGPQNEyELq4Gd18di9efPmb3zmNEK6BCVkDPiNGzd+e/HixV+xI3woQkbkqlQqdX0Cg+EzrhcpsvH4wYos5iKMTRBCPnDgwBR3km4uISdFbuzvxsbGfmfnwmdMGiibn3GRVF4jwBn0upksi8iWVtvg2KbxbHb9m0EoY5NE7kLWl2E2czlVkvPxgZLJkIfvQCSVtxVsDu+ypNkf9zFxxemxT/WdrNJqm21MMXkm1d+X7bTTh2aMTTPJVcjoeO4Mk7mcKsn5fIQcW7xUik9uOS+f8nzBoPMqwcfgvJyXT54+TpZG21DO5pI3W6P5chnbaWcSrvxd5hqbZpOrkPUZNe6I06dPL/FS2zX4Sem2ImQ2zsunPF8QQTaX9m9++soA/WCqv81ZXREE9zg9k0bb9DGNIzDXi+vP4seJN+erw/np5tPOJJoxNs0mVyHrHQAB6/d8nSopXRxduYPxGdexT8YeZ6Mi/xmckPPyKQ+gLa58eN+V9JqG3+tyX5nSmGwrArG1zQWvsGLH5+toPz+riwf/5vsx221nHmOTBcEImR3H16l809nAIJlmVtsyyac8jjD6PXZqWzmMvtQzlatHQkxMKIf3qi6BAJ+2udBFwGVhwozvmaImxBffh/H9mO22M4+xyYJchWyKhCZzdc52nA/OY6uDLS/f8vS89CWZ/rzJoW3ok42pXL0dekTiScoVXXzbZkN/nqMiRy5+lgVmO6NIo516uizGJgtyFTJ3vs1cnaN3PmZ9vs9ggBE5bALGdXbCRsrT08VOyc68lVNWPaKZ+kPPVxeBr0BAmkLmcrjt/CzwiWx6Hmm0M4uxyYJchQz0TrUZxGUaGHQ2C5LTxXthiNd0iKEb8nLN5D7lAXaKeJ+lLwt9Bxxl8rLTtMfU76Mc3RF9BMptM5WRhF4O6hD3Jbcdxs8CXRC25bGeRyPtzGNssiB3IQN0Bgu6keP/Ro3FGRvXKRQzvfNOu66mMpLwrYNNpLoobEtb3zLyskb6LQ2CELINm8DSMkwWmKF5WRay+Yhgu4Z+5/x98K2DaRUD9Ghpq4NvGXmYbWyyIGgh8zLIZklLZjakZ2fy3a/DfMvDci3NyQjRyLX05+Vro7adqJJUB9eylceb7/uW4WNZj02zCVrIAINrEw4ianwwBeezpUMnY+CQ1tXZvMTnZZxveXo67KNQNufla3gOe0eeeGy4+stlcGreczYK9yPMNHkyvkKO0zbSzjzHppkEL2Rh++iO6jqRzxufpbWLorSzGYiQdzi8/w8hethI+tKIiyK1sxkUTsi8l7VdSwtT3qZroVKUurIQXe/oTRSlnc1ChJyAKW/TtbxA+djnxT82ia9jD8+HQvjMz+cBlr36gRqiJ79u5AO3uP5FameWrGu4VqsNt7S0jPPNEDGJyHQtLUx5m67lhV6PJEvjICsNuF5spmU1p3FZKO3MknUhLywsfLd///77fFMIH3Zim7le+2QN142No7HPM7GF1M6sQBBGMC4tLy9fbm9vf8AJhPBhRzZZaM7N9dPNdtrM6UwWWjuzAkEYwbi0trbW193dPc8JhPDBIRGcH+9U9S84xO+FQzy95f9gEXVN+v/TitjOrOjo6JheWVm5UFJKtVUqlbucQBCE8Dl37tyMUqqzFEXRromJicIceAmC8D8jIyM/KaU+KsFWV1eP9/b2vnfIIAhCuHR1dc3U6/Xz6yKGRVFUHh0dvSlRWRCKw9DQ0G2lVOuGkGHPnj37vL+/f5ITC4IQHkeOHHnw+PHjgU0iju3hw4dfHzx4UMQsCAHT1tY2MT09/S3Ot1jD64YbSNDZ2TnBDwuCkD8Q8fDw8NDGAZfNlFK7l5aWLp08eVK+JCIIAYHlNAJtooh1e/78+dFqtXoLJ2OcoSAI2YFvXuJgC3ti63LaZVEU7cXxNt5V4cUzvkVSLpfvcEGCIKQHNAbxDgwM1BBM8TXq906nGzGEcnx7BF8Fq9VqVfzaQhCE5gCNQbxRFHUhmLIeTfYPWBD1EBcrGxMAAAAASUVORK5CYII=';\nconst BADGE_W = 242, BADGE_H = 60, MARGIN = 24;\nlet V = {};\ntry { V = $('GEN - Validate Generated Image').first(0).json || {}; } catch (e) { V = {}; }\nconst item = $input.first();\nconst binary = Object.assign({}, item.binary || {});\nif (!binary.generated_image) throw new Error('generated_image binary missing before overlay');\nconst w = Number(V.generated_image_width) || 0;\nconst h = Number(V.generated_image_height) || 0;\nlet x = MARGIN, y = MARGIN, fallback = true;\nif (w >= BADGE_W + 2 * MARGIN && h >= BADGE_H + 2 * MARGIN) { x = w - BADGE_W - MARGIN; y = h - BADGE_H - MARGIN; fallback = false; }\nbinary.overlay_badge = { data: BADGE_B64, mimeType: 'image/png', fileName: 'overlay_badge.png', fileExtension: 'png' };\nreturn [{ json: { overlay_x: x, overlay_y: y, overlay_position_fallback: fallback, overlay_text: 'صورة توضيحية', overlay_badge_size: BADGE_W + 'x' + BADGE_H, base_width: w, base_height: h, generated_image_file_name: V.generated_image_file_name || 'generated.png' }, binary }];"
+      },
+      "id": "eeb5ff67-bb9f-4e96-81d3-5e78a26a11d2",
+      "name": "GEN - Load Overlay Badge",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11808,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "composite",
+        "dataPropertyName": "generated_image",
+        "dataPropertyNameComposite": "overlay_badge",
+        "positionX": "={{ $json.overlay_x }}",
+        "positionY": "={{ $json.overlay_y }}",
+        "options": {
+          "fileName": "={{ $json.generated_image_file_name }}",
+          "format": "png"
+        }
+      },
+      "id": "b708420e-2251-4fef-8c07-d26b5f7c8791",
+      "name": "GEN - Apply Overlay (صورة توضيحية)",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        12112,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V4: Select Visual\n// Turns the human review decision into ONE canonical selected visual.\n// use_generated -> \"generated\" (image WITH the illustrative overlay)\n// use_original  -> \"source\" (the original photo exactly as received)\nconst j = Object.assign({}, $json);\ndelete j.generated_image_b64;\ndelete j.image_request_body;\nconst route = String(j.visual_route || '');\nlet selected = 'none';\nlet ok = false;\nlet note = '';\nif (route === 'use_generated') {\n  if (j.generation_failed === true || !j.generated_image_media_type) note = 'use generated chosen but no generated image exists';\n  else { selected = 'generated'; ok = true; }\n} else if (route === 'use_original') {\n  if (String(j.source_media_type) !== 'photo') note = 'use original chosen but the source has no photo';\n  else { selected = 'source'; ok = true; }\n} else note = 'unexpected visual route ' + route;\nconst origin = selected === 'generated' ? ('openrouter ' + String(j.generated_image_model || '') + ' + illustrative overlay') : (selected === 'source' ? 'telegram source photo (unmodified)' : '');\nreturn [{ json: Object.assign(j, { selected_visual: selected, selection_ok: ok, selection_note: note, visual_route_note: note || j.visual_route_note || '', selected_visual_origin: origin, postiz_publish_started: false, postiz_publish_completed: false }) }];"
+      },
+      "id": "cbd7c48c-13cb-4006-b8f5-299513030378",
+      "name": "PUB - Select Visual",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15104,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "07d935d0-24a6-4119-b1a1-2e302aa2ca79",
+              "leftValue": "={{ $json.selection_ok === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "888a9231-93b7-40c1-a616-ede1b4de135a",
+      "name": "PUB - Selection OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        15408,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// V4: Prepare Selected Image\n// Attaches exactly ONE binary, \"selected_visual\", for the Postiz upload.\n// Source images are attached as received (no overlay, no edit). Generated\n// images are taken from the overlay node's latest run (the newest candidate).\nconst j = Object.assign({}, $json);\nlet src = null;\nif (j.selected_visual === 'generated') {\n  try { src = $('GEN - Apply Overlay (صورة توضيحية)').first(0).binary.generated_image; } catch (e) { src = null; }\n  if (!src) throw new Error('generated image binary with overlay not found');\n} else if (j.selected_visual === 'source') {\n  try { src = $('MEDIA - Prepare Source Image').first(0).binary.image0; } catch (e) { src = null; }\n  if (!src) throw new Error('original source image binary not found');\n} else throw new Error('no visual selected');\nconst mime = String(src.mimeType || (j.selected_visual === 'generated' ? 'image/png' : 'image/jpeg'));\nconst ext = mime === 'image/png' ? 'png' : (mime === 'image/webp' ? 'webp' : 'jpg');\nconst base = 'salamtak_' + (j.message_id || 'item');\nconst fileName = j.selected_visual === 'generated' ? (base + '_generated_a' + (j.image_generation_attempt || 1) + '_illustrative.' + ext) : (base + '_source.' + ext);\nconst binary = { selected_visual: Object.assign({}, src, { fileName: fileName }) };\nreturn [{ json: Object.assign(j, { selected_visual_binary_property: 'selected_visual', selected_visual_media_type: mime, selected_visual_filename: fileName, selected_visual_file_size: src.fileSize || '', selected_visual_binary_id: src.id || '' }), binary }];"
+      },
+      "id": "1641a669-12b1-4dd5-a1c8-025983958a54",
+      "name": "PUB - Prepare Selected Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15712,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_POSTIZ_HOST/api/public/v1/upload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "selected_visual"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "db54b820-be24-4041-9ecc-cb6db6140334",
+      "name": "PUB - Upload Media to Postiz",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        16000,
+        240
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Postiz API Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V4: Build Postiz Media\n// Validates the Postiz upload response and prepares the post media object\n// ([{ id, path }], the shape required by Postiz MediaDto). Marks the durable\n// publish state as started; completion is marked only after both posts succeed.\nconst resp = $json || {};\nlet E = {};\ntry { E = Object.assign({}, $('PUB - Prepare Selected Image').first(0).json); } catch (e) { E = {}; }\nconst fail = (m) => { throw new Error('postiz upload response invalid - ' + String(m).replace(/:/g, ' -')); };\nconst cand = (resp && typeof resp === 'object') ? ((resp.data && typeof resp.data === 'object' && resp.data.id) ? resp.data : resp) : null;\nif (!cand) fail('empty response');\nconst id = String(cand.id || '').trim();\nconst path = String(cand.path || '').trim();\nif (!id) fail('media id missing');\nif (!path) fail('media path missing');\nif (!/^(https?:\\/\\/|\\/)/i.test(path)) fail('media path is not a URL');\nif (!/\\.(png|jpe?g|webp|gif)(\\?|$)/i.test(path)) fail('media path has no image extension');\nconst now = new Date().toISOString();\nreturn [{ json: Object.assign(E, { postiz_media: [{ id: id, path: path }], postiz_media_id: id, postiz_media_path: path, postiz_media_uploaded_at: now, postiz_publish_started: true, postiz_publish_started_at: now, postiz_publish_completed: false }) }];"
+      },
+      "id": "720fc786-ef79-4561-9c14-dce9db393488",
+      "name": "PUB - Build Media Object",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16304,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// V4: Mark Publish Completed\n// Reached only after BOTH Postiz calls succeeded; records the durable state.\nlet E = {};\ntry { E = Object.assign({}, $('PUB - Restore Article').first(0).json); } catch (e) { E = {}; }\nlet fb = null;\ntry { fb = $('PUB - Publish Facebook').first(0).json; } catch (e) { fb = null; }\nconst tg = $json || {};\nconst pick = (r) => { if (!r || typeof r !== 'object') return null; const arr = Array.isArray(r) ? r : (Array.isArray(r.posts) ? r.posts : [r]); return arr.map(p => p && (p.postId || p.id || p.releaseId || null)).filter(Boolean); };\ndelete E.generated_image_b64;\ndelete E.image_request_body;\nreturn [{ json: Object.assign(E, { postiz_publish_completed: true, postiz_publish_completed_at: new Date().toISOString(), postiz_facebook_result: pick(fb), postiz_telegram_result: pick(tg) }) }];"
+      },
+      "id": "534fef31-6ca4-476b-b143-1a45377f7f01",
+      "name": "PUB - Mark Completed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        17504,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// WEB - Source List\n// Configuration of website / RSS sources. Add a source by adding one object.\n//   name: display name        type: 'rss'        url: feed URL\n//   fetch_page: fetch the article page for og:image / full text when the feed is thin (default true)\n//   title_publisher_suffix: feed titles end with \" - Publisher\" (Google News style)\nconst SOURCES = [\n  { name: 'Google News Iraq', type: 'rss', url: 'https://news.google.com/rss/search?q=%D8%A7%D9%84%D8%B9%D8%B1%D8%A7%D9%82&hl=ar&gl=IQ&ceid=IQ:ar', fetch_page: false, title_publisher_suffix: true },\n  { name: 'Al Mada', type: 'rss', url: 'https://almadapaper.net/feed', fetch_page: true, title_publisher_suffix: false },\n];\n// [SOURCES-END]\nreturn SOURCES.filter(s => s && s.type === 'rss' && /^https?:\\/\\//i.test(String(s.url))).map(s => ({ json: s }));"
+      },
+      "id": "c73eb84c-217f-4e39-aee5-d22b456af6d6",
+      "name": "WEB - Source List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// WEB - Normalize Article\n// Converts RSS items from every source into the common article object used by\n// the Telegram path. Image priority: enclosure > media:content > media:thumbnail\n// > media:group > first <img> in content. Page fetch is decided here, done later.\nconst CFG = { MAX_AGE_HOURS: 36, MIN_TEXT_CHARS: 400 };\nlet srcList = [];\ntry { srcList = $('WEB - Source List').all().map(i => i.json); } catch (e) { srcList = []; }\nconst decode = (s) => String(s || '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;|&apos;/g, \"'\").replace(/&#(\\d+);/g, (m, d) => String.fromCharCode(Number(d)));\nconst strip = (h) => decode(String(h || '').replace(/<script[\\s\\S]*?<\\/script>/gi, ' ').replace(/<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<br\\s*\\/?>/gi, '\\n').replace(/<\\/(p|div|li|h[1-6]|tr)>/gi, '\\n').replace(/<[^>]+>/g, ' ')).replace(/[ \\t]+/g, ' ').replace(/\\n\\s*\\n+/g, '\\n').trim();\nconst normUrl = (u) => { try { const x = new URL(String(u).trim()); x.hash = ''; for (const k of [...x.searchParams.keys()]) if (/^(utm_|fbclid|gclid|ref$)/i.test(k)) x.searchParams.delete(k); x.hostname = x.hostname.toLowerCase(); return x.toString(); } catch (e) { return String(u || '').trim(); } };\nconst attr = (m) => (m && typeof m === 'object') ? (m.$ || m) : {};\nconst firstImg = (html) => { const m = String(html || '').match(/<img[^>]+src=[\"']([^\"']+)[\"']/i); return m ? m[1] : ''; };\nconst pickMedia = (it) => {\n  const c = [];\n  if (it.enclosure && it.enclosure.url && (!it.enclosure.type || /^image\\//i.test(it.enclosure.type))) c.push(['rss_enclosure', it.enclosure.url]);\n  for (const key of ['media:content', 'media:thumbnail']) { const v = it[key]; for (const m of (Array.isArray(v) ? v : (v ? [v] : []))) { const a = attr(m); const url = a.url || (typeof m === 'string' ? m : ''); if (url && (!a.medium || a.medium === 'image') && (!a.type || /^image\\//i.test(a.type))) c.push([key.replace(':', '_'), url]); } }\n  const g = it['media:group']; if (g && g['media:content']) { for (const m of (Array.isArray(g['media:content']) ? g['media:content'] : [g['media:content']])) { const a = attr(m); if (a.url) c.push(['media_group', a.url]); } }\n  const ci = firstImg(it['content:encoded'] || it.content); if (ci) c.push(['content_img', ci]);\n  return c.find(x => /^https?:\\/\\//i.test(x[1])) || null;\n};\nconst now = Date.now(); const out = [];\nfor (const item of $input.all()) {\n  const it = item.json || {};\n  const pi = item.pairedItem; const idx = Array.isArray(pi) ? (pi[0] && pi[0].item) : (pi && typeof pi === 'object' ? pi.item : pi);\n  const src = srcList[Number(idx)] || srcList[0] || {};\n  const link = normUrl(it.link || it.guid || ''); if (!link) continue;\n  let title = strip(it.title); let publisher = src.name || '';\n  if (src.title_publisher_suffix) { const m = title.match(/^(.*)\\s[-–]\\s([^-–]{2,60})$/); if (m) { title = m[1].trim(); publisher = m[2].trim(); } }\n  const body = strip(it['content:encoded'] || it.content || it.description || it.contentSnippet || it.summary || '');\n  const dateIso = it.isoDate || it.pubDate || ''; const ts = Date.parse(dateIso);\n  if (!isNaN(ts) && now - ts > CFG.MAX_AGE_HOURS * 3600e3) continue;\n  const media = pickMedia(it);\n  let host = ''; try { host = new URL(link).origin; } catch (e) { host = ''; }\n  out.push({ json: {\n    source_type: 'website', source_name: src.name || 'website', source_url: link, article_url: link, article_id: link, dedupe_key: link,\n    publisher, display_url: link.length > 90 ? (host + '/…') : link,\n    title, text: (title + '\\n\\n' + body).trim(), date: dateIso, caption: '', channel: '', message_id: '',\n    has_media: !!media, media_type: media ? 'photo' : 'none', media_count: media ? 1 : 0, media_group_id: '',\n    media_local_paths: media ? JSON.stringify([media[1]]) : '[]', source_image_url: media ? media[1] : '', source_image_origin: media ? media[0] : '',\n    source_has_image: !!media, source_media_type: media ? 'photo' : 'none', preview_channel_name: src.name || '',\n    body_chars: body.length, needs_page_fetch: src.fetch_page !== false && (!media || body.length < CFG.MIN_TEXT_CHARS), _ts: isNaN(ts) ? 0 : ts,\n  } });\n}\nout.sort((a, b) => b.json._ts - a.json._ts);\nreturn out;"
+      },
+      "id": "1ca094c3-8b2d-4a51-8bba-f6c04a961f1c",
+      "name": "WEB - Normalize Article",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// WEB - Dedupe & Limit\n// Website duplicates are rejected by the normalized article URL (dedupe_key),\n// remembered in workflow static data. Only the newest UNSEEN articles are\n// released (MAX_ITEMS_PER_RUN, kept at 1 so every execution handles one article,\n// which is what the review and publishing stages expect). Only released items\n// are marked as seen, so skipped articles are picked up by later runs.\nconst CFG = { MAX_ITEMS_PER_RUN: 1, HISTORY_SIZE: 5000 };\nconst store = $getWorkflowStaticData('global');\nif (!store.web_seen || typeof store.web_seen !== 'object') store.web_seen = {};\nconst seen = store.web_seen; const out = [];\nfor (const item of $input.all()) {\n  const key = String(item.json.dedupe_key || item.json.article_url || '').trim(); if (!key) continue;\n  if (seen[key]) continue;\n  if (out.length >= CFG.MAX_ITEMS_PER_RUN) break;\n  seen[key] = Date.now(); const j = Object.assign({}, item.json); delete j._ts; out.push({ json: j });\n}\nconst keys = Object.keys(seen); if (keys.length > CFG.HISTORY_SIZE) { keys.sort((a, b) => seen[a] - seen[b]); for (const k of keys.slice(0, keys.length - CFG.HISTORY_SIZE)) delete seen[k]; }\nreturn out;"
+      },
+      "id": "5c76460c-5bfa-43aa-aced-c7178e8e20a7",
+      "name": "WEB - Dedupe & Limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c2ddf5db-d12c-4464-9aa9-c3082e3e2868",
+              "leftValue": "={{ $json.needs_page_fetch === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d4e25682-75d8-498f-9dfe-4dcda0e4ee12",
+      "name": "WEB - Need Page Fetch?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2016,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.article_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (compatible; NewsroomBot/1.0; +https://YOUR_SITE)"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "html"
+            }
+          },
+          "timeout": 15000
+        }
+      },
+      "id": "b80bb028-dabb-445f-853f-1d8c347c6c5a",
+      "name": "WEB - Fetch Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2224,
+        608
+      ],
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// WEB - Parse Page\n// Extracts og:image and readable article text from the fetched page (no\n// navigation, scripts, ads or boilerplate). Never bypasses access controls:\n// on any fetch error the feed content is kept and the AI decides publishability.\nconst bases = $('WEB - Need Page Fetch?').all(0);\nconst decode = (s) => String(s || '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;|&apos;/g, \"'\").replace(/&#(\\d+);/g, (m, d) => String.fromCharCode(Number(d)));\nconst out = [];\n$input.all().forEach((item, i) => {\n  const pi = item.pairedItem; const idx = Array.isArray(pi) ? (pi[0] && pi[0].item) : (pi && typeof pi === 'object' ? pi.item : (pi == null ? i : pi));\n  const base = Object.assign({}, (bases[Number(idx)] || bases[i] || { json: {} }).json);\n  const html = typeof item.json.html === 'string' ? item.json.html : '';\n  let status = html ? 'ok' : ('failed: ' + String((item.json.error && (item.json.error.message || item.json.error)) || 'empty response').slice(0, 120));\n  let og = '';\n  if (html) { const m = html.match(/<meta[^>]+(?:property|name)=[\"'](?:og:image|og:image:url|twitter:image)[\"'][^>]*content=[\"']([^\"']+)[\"']/i) || html.match(/<meta[^>]+content=[\"']([^\"']+)[\"'][^>]*(?:property|name)=[\"'](?:og:image|og:image:url|twitter:image)[\"']/i); if (m) og = decode(m[1]); }\n  let text = '';\n  if (html) {\n    let h = html.replace(/<(script|style|noscript|nav|header|footer|aside|form|iframe|svg|figure)[\\s\\S]*?<\\/\\1>/gi, ' ').replace(/<!--[\\s\\S]*?-->/g, ' ');\n    const art = h.match(/<article[\\s\\S]*?<\\/article>/i); if (art) h = art[0];\n    const paras = []; const re = /<p\\b[^>]*>([\\s\\S]*?)<\\/p>/gi; let m;\n    while ((m = re.exec(h)) !== null) { const t = decode(m[1].replace(/<[^>]+>/g, ' ')).replace(/\\s+/g, ' ').trim(); if (t.length >= 40 && !/cookie|subscribe|all rights reserved|جميع الحقوق/i.test(t)) paras.push(t); }\n    text = paras.join('\\n').slice(0, 6000);\n  }\n  const j = Object.assign(base, { page_fetch_status: status, page_text_chars: text.length });\n  if (text.length > 300 && text.length > Number(base.body_chars || 0)) { j.text = (String(base.title || '') + '\\n\\n' + text).trim(); j.text_source = 'page'; } else j.text_source = 'feed';\n  if (!j.source_image_url && og && /^https?:\\/\\//i.test(og)) { j.source_image_url = og; j.source_image_origin = 'og_image'; j.has_media = true; j.media_type = 'photo'; j.media_count = 1; j.media_local_paths = JSON.stringify([og]); j.source_has_image = true; j.source_media_type = 'photo'; }\n  out.push({ json: j });\n});\nreturn out;"
+      },
+      "id": "ff05f04b-9d4c-4a77-984c-2d63bce64578",
+      "name": "WEB - Parse Page",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2544,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c0df3df3-0474-4d90-bbf5-341f3bfa67f6",
+              "leftValue": "={{ typeof $json.source_image_url === \"string\" && $json.source_image_url.startsWith(\"http\") }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f67276a2-2b72-40bf-93ff-8358aa87aec2",
+      "name": "WEB - Has Image URL?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2880,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.source_image_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (compatible; NewsroomBot/1.0; +https://YOUR_SITE)"
+            },
+            {
+              "name": "Accept",
+              "value": "image/*"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "image0"
+            }
+          },
+          "timeout": 20000
+        }
+      },
+      "id": "541d8ea3-8eb1-42db-978f-76432855c4cb",
+      "name": "WEB - Download Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3232,
+        464
+      ],
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// WEB - Finalize Media\n// Keeps the downloaded image as binary \"image0\" (same format the Telegram path\n// uses) when it really is an image; otherwise the article continues text-only.\nconst bases = $('WEB - Has Image URL?').all(0);\nconst out = [];\n$input.all().forEach((item, i) => {\n  const pi = item.pairedItem; const idx = Array.isArray(pi) ? (pi[0] && pi[0].item) : (pi && typeof pi === 'object' ? pi.item : (pi == null ? i : pi));\n  const j = Object.assign({}, (bases[Number(idx)] || bases[i] || { json: {} }).json);\n  const b = item.binary && item.binary.image0; const mime = b ? String(b.mimeType || '') : '';\n  const ok = !!b && /^image\\/(jpeg|jpg|png|webp)/i.test(mime);\n  if (ok) { const ext = /png/i.test(mime) ? 'png' : (/webp/i.test(mime) ? 'webp' : 'jpg'); const bin = Object.assign({}, b, { fileName: 'web_' + Date.now() + '.' + ext }); j.image_download_status = 'ok'; out.push({ json: j, binary: { image0: bin } }); }\n  else { Object.assign(j, { has_media: false, media_type: 'none', media_count: 0, media_local_paths: '[]', source_has_image: false, source_media_type: 'none', image_download_status: 'failed: ' + (b ? ('not an image (' + mime + ')') : String((item.json && item.json.error && (item.json.error.message || item.json.error)) || 'no binary').slice(0, 120)) }); out.push({ json: j }); }\n});\nreturn out;"
+      },
+      "id": "051da43e-8c59-46ef-b26d-87698e589d3c",
+      "name": "WEB - Finalize Media",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 1 — SOURCES\nTelegram + websites/RSS enter here.\nAll source-specific formatting must be normalized before entering the common pipeline.\n\nTelegram: TG - Incoming Webhook → TG - Normalize Input\nWebsites: WEB - Schedule (every 15 min) → WEB - Source List (config) → WEB - Read RSS → WEB - Normalize Article",
+        "height": 1060,
+        "width": 1420,
+        "color": 4
+      },
+      "id": "8bd772ef-8161-4010-ac70-c93bb4baca29",
+      "name": "Sticky 1 — SOURCES",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2 — NORMALIZE & DEDUPE\nConverts every source into one common article object and prevents duplicate processing.\n\nWebsite: dedupe by normalized article URL (workflow static data), newest unseen article only, optional page fetch for og:image / readable text, image download into binary image0.\nTelegram: identity = channel + message_id (dedupe_key), one message per execution.\nBoth converge in SRC - Has Content.",
+        "height": 1060,
+        "width": 2620,
+        "color": 5
+      },
+      "id": "08346d3d-8dc7-4a08-b506-07ebc395f02c",
+      "name": "Sticky 2 — NORMALIZE & DEDUPE",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 3 — MEDIA / OCR / VISION\nProcesses source photos.\nText-only articles bypass this section.\nVideos remain metadata-only until the video phase.\n\nWorks identically for Telegram photos and website images (binary image0).",
+        "height": 1060,
+        "width": 1620,
+        "color": 6
+      },
+      "id": "a26f8a0a-9472-4965-9ca9-4d33a98820b3",
+      "name": "Sticky 3 — MEDIA / OCR / VISION",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4224,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4 — EDITORIAL AI\nPrimary: Qwen through OpenRouter.\nFallback: Hermes through OpenRouter.\nStrict JSON validation is mandatory.\n\nEDITORIAL - Publishability Filter: publish = true and importance ≥ 5.",
+        "height": 1060,
+        "width": 1720,
+        "color": 7
+      },
+      "id": "fe3d191d-32a9-4387-b5b5-644f94f62de4",
+      "name": "Sticky 4 — EDITORIAL AI",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6000,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 5 — TEXT APPROVAL\nHuman editorial gate.\nNothing may continue to image generation or publishing without approval.\n\nSource preview (photo items) → REVIEW - Text Approval (Telegram one-tap, HMAC-bound) → REVIEW - Approved?",
+        "height": 1060,
+        "width": 1980,
+        "color": 3
+      },
+      "id": "f961e8dd-0826-4047-b7aa-304094d90e3b",
+      "name": "Sticky 5 — TEXT APPROVAL",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7808,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 6 — IMAGE GENERATION\nCreates an optional original editorial visual after text approval.\nAI-created assets receive the deterministic Arabic label:\nصورة توضيحية\n\nConfig lives in GEN - Decide Visual Mode (model, 4:5, regeneration limit, source-strategy flag).",
+        "height": 1060,
+        "width": 3000,
+        "color": 2
+      },
+      "id": "8d88d97f-aff1-4fbe-b721-3b5e3e5a903b",
+      "name": "Sticky 6 — IMAGE GENERATION",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        9888,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 7 — VISUAL REVIEW\nHuman selects:\nOriginal · Generated · Regenerate · Reject\n\nThe selected visual is the only visual allowed into Postiz.\nReview form is HMAC-bound to this execution; max 2 regenerations.",
+        "height": 1060,
+        "width": 2020,
+        "color": 3
+      },
+      "id": "03f5e0f4-0a3f-4923-ad60-cffa7617337d",
+      "name": "Sticky 7 — VISUAL REVIEW",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        12912,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 8 — PUBLISH\nUploads the selected visual to Postiz and publishes the validated article.\n\nExactly one image per article. postiz_publish_started / postiz_publish_completed record the durable state.",
+        "height": 1060,
+        "width": 3100,
+        "color": 4
+      },
+      "id": "de06bdc2-1a37-4b1b-9e15-aedbdc6e2730",
+      "name": "Sticky 8 — PUBLISH",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        15008,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## ERROR HANDLING\nInfrastructure or validation errors end here.\nNo error path may silently publish content.\n\nERR - Notify Failed · ERR - Notify Text Rejected · ERR - Notify Generation Failed (feeds the failure review) · ERR - Notify Manual Review · ERR - Notify Visual Rejected",
+        "height": 320,
+        "width": 18140
+      },
+      "id": "6fc0a510-035c-4958-84c0-68ac7de46b70",
+      "name": "Sticky 9 — ERROR HANDLING",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## LEGACY — DISABLED\nDo not reconnect unless intentionally restoring an older version.\n\nGemini / OpenAI / old JSON parser from the pre-OpenRouter pipeline. Kept for reference only.",
+        "height": 400,
+        "width": 1500
+      },
+      "id": "2f5f7250-ab45-4542-8bd5-6b25f3f48fb3",
+      "name": "Sticky 10 — LEGACY",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        5904,
+        -848
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=❌ فشل إرسال الخبر للنشر\nالمرحلة: {{ String($prevNode.name).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n📰 {{ String($json.title || (() => { try { return $('PUB - Select Visual').first(0).json.title; } catch (e) { return ''; } })() || '').slice(0, 160).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n🖼 الصورة المختارة: {{ (() => { try { const s = $json.selected_visual || $('PUB - Select Visual').first(0).json.selected_visual; return s === 'generated' ? 'المولدة' : (s === 'source' ? 'الأصلية' : '-'); } catch (e) { return '-'; } })() }}\n❗ {{ String(typeof $json.error === 'string' ? $json.error : ($json.error?.message ?? JSON.stringify($json.error ?? 'unknown error'))).replace(/(authorization|bearer|token|api[_-]?key)[^\\s,;\"']*/gi, '[redacted]').replace(/[A-Za-z0-9+\\/]{80,}={0,2}/g, '[data]').slice(0, 300).replace(/[_*\\[\\]`]/g, m => '\\\\' + m) }}\n⛔ لم يتم النشر — لم يُرسل الخبر إلى Postiz بشكل كامل",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "fee4b2dd-00b7-4af0-a187-74c07de4049e",
+      "name": "ERR - Notify Publish Failed",
+      "webhookId": "9aff1397-d0c1-4a67-a188-f29726a2e9ae",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        16608,
+        640
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "message": "={{ $json.visual_review_message }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "القرار",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "🚀 نشر بالصورة المولدة"
+                  },
+                  {
+                    "option": "🔄 توليد صورة ثانية"
+                  },
+                  {
+                    "option": "❌ إلغاء الخبر"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "messageButtonLabel": "👉 اختيار الصورة والنشر (الخطوة الأخيرة)",
+          "responseFormTitle": "الخطوة الأخيرة — اختيار الصورة والنشر",
+          "responseFormDescription": "={{ $json.visual_review_form_description }}",
+          "responseFormButtonLabel": "تأكيد الاختيار",
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 12
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "fb6b9840-db33-47c9-9b56-afbf676b3c38",
+      "name": "VREVIEW - Visual Review (no source)",
+      "webhookId": "e5d0248d-d1e4-4368-b74c-10b9fc05dcc3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13904,
+        272
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "message": "={{ $json.visual_review_message }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "القرار",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "🔄 توليد صورة ثانية"
+                  },
+                  {
+                    "option": "❌ إلغاء الخبر"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "messageButtonLabel": "👉 اختيار الصورة والنشر (الخطوة الأخيرة)",
+          "responseFormTitle": "الخطوة الأخيرة — اختيار الصورة والنشر",
+          "responseFormDescription": "={{ $json.visual_review_form_description }}",
+          "responseFormButtonLabel": "تأكيد الاختيار",
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 12
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "913f6ac4-41d8-4bfa-b9b1-fb24475d7342",
+      "name": "VREVIEW - Visual Review (failure, no source)",
+      "webhookId": "525a05f7-d512-4f35-888f-091568a8a314",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13904,
+        592
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "TG - Incoming Webhook": {
+      "main": [
+        [
+          {
+            "node": "TG - Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TG - Normalize Input": {
+      "main": [
+        [
+          {
+            "node": "SRC - Has Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Schedule": {
+      "main": [
+        [
+          {
+            "node": "WEB - Source List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Read RSS": {
+      "main": [
+        [
+          {
+            "node": "WEB - Normalize Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SRC - Has Content": {
+      "main": [
+        [
+          {
+            "node": "MEDIA - Has Photo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI - Hermes Fallback": {
+      "main": [
+        [
+          {
+            "node": "AI - Validate Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI - Validate Output": {
+      "main": [
+        [
+          {
+            "node": "AI - Attach Visual Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EDITORIAL - Publishability Filter": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Attach Source Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Text Approval": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Approved?": {
+      "main": [
+        [
+          {
+            "node": "GEN - Decide Visual Mode",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Text Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Publish Facebook": {
+      "main": [
+        [
+          {
+            "node": "PUB - Publish Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Publish Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Publish Telegram": {
+      "main": [
+        [
+          {
+            "node": "PUB - Mark Completed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Publish Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LEGACY Gemini (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LEGACY Parse Model JSON (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LEGACY OpenAI Fallback (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LEGACY OpenAI Fallback (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LEGACY Parse Model JSON (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI - Qwen Primary": {
+      "main": [
+        [
+          {
+            "node": "AI - Validate Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI - Hermes Fallback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MEDIA - Has Photo?": {
+      "main": [
+        [
+          {
+            "node": "MEDIA - Prepare Source Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI - Qwen Primary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MEDIA - Extract Base64": {
+      "main": [
+        [
+          {
+            "node": "MEDIA - OCR / Vision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MEDIA - OCR / Vision": {
+      "main": [
+        [
+          {
+            "node": "MEDIA - Merge Image Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MEDIA - Merge Image Context": {
+      "main": [
+        [
+          {
+            "node": "AI - Qwen Primary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI - Attach Visual Fields": {
+      "main": [
+        [
+          {
+            "node": "EDITORIAL - Publishability Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MEDIA - Prepare Source Image": {
+      "main": [
+        [
+          {
+            "node": "MEDIA - Extract Base64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Attach Source Image": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Has Source Image?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Has Source Image?": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Send Source Preview",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "REVIEW - Text Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Send Source Preview": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Restore Editorial",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REVIEW - Restore Editorial": {
+      "main": [
+        [
+          {
+            "node": "REVIEW - Text Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Decide Visual Mode": {
+      "main": [
+        [
+          {
+            "node": "GEN - Route Visual Mode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Route Visual Mode": {
+      "main": [
+        [
+          {
+            "node": "GEN - Build Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Manual Review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PUB - Restore Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Build Image Prompt": {
+      "main": [
+        [
+          {
+            "node": "GEN - OpenRouter Image Generation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - OpenRouter Image Generation": {
+      "main": [
+        [
+          {
+            "node": "GEN - Validate Generated Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Validate Generated Image": {
+      "main": [
+        [
+          {
+            "node": "GEN - Decode Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Decode Image": {
+      "main": [
+        [
+          {
+            "node": "GEN - Load Overlay Badge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Attach Generated Image": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Send Generated Preview",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Send Generated Preview": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Prepare Review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Handle Failure": {
+      "main": [
+        [
+          {
+            "node": "ERR - Notify Generation Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ERR - Notify Generation Failed": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Prepare Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Prepare Review": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Review Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Review Type": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Visual Review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "VREVIEW - Visual Review (no source)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "VREVIEW - Visual Review (after failure)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "VREVIEW - Visual Review (failure, no source)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Visual Review": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Parse Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Visual Review (after failure)": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Parse Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Parse Decision": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Route Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Route Decision": {
+      "main": [
+        [
+          {
+            "node": "PUB - Select Visual",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PUB - Select Visual",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Build Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Visual Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Manual Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Restore Article": {
+      "main": [
+        [
+          {
+            "node": "PUB - Publish Facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Load Overlay Badge": {
+      "main": [
+        [
+          {
+            "node": "GEN - Apply Overlay (صورة توضيحية)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GEN - Apply Overlay (صورة توضيحية)": {
+      "main": [
+        [
+          {
+            "node": "GEN - Attach Generated Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GEN - Handle Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Select Visual": {
+      "main": [
+        [
+          {
+            "node": "PUB - Selection OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Selection OK?": {
+      "main": [
+        [
+          {
+            "node": "PUB - Prepare Selected Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Manual Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Prepare Selected Image": {
+      "main": [
+        [
+          {
+            "node": "PUB - Upload Media to Postiz",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Publish Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Upload Media to Postiz": {
+      "main": [
+        [
+          {
+            "node": "PUB - Build Media Object",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Publish Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Build Media Object": {
+      "main": [
+        [
+          {
+            "node": "PUB - Restore Article",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERR - Notify Publish Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUB - Mark Completed": {
+      "main": [
+        [
+          {
+            "node": "PUB - Notify Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Source List": {
+      "main": [
+        [
+          {
+            "node": "WEB - Read RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Normalize Article": {
+      "main": [
+        [
+          {
+            "node": "WEB - Dedupe & Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Dedupe & Limit": {
+      "main": [
+        [
+          {
+            "node": "WEB - Need Page Fetch?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Need Page Fetch?": {
+      "main": [
+        [
+          {
+            "node": "WEB - Fetch Page",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WEB - Has Image URL?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Fetch Page": {
+      "main": [
+        [
+          {
+            "node": "WEB - Parse Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Parse Page": {
+      "main": [
+        [
+          {
+            "node": "WEB - Has Image URL?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Has Image URL?": {
+      "main": [
+        [
+          {
+            "node": "WEB - Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SRC - Has Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Download Image": {
+      "main": [
+        [
+          {
+            "node": "WEB - Finalize Media",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB - Finalize Media": {
+      "main": [
+        [
+          {
+            "node": "SRC - Has Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Visual Review (no source)": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Parse Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VREVIEW - Visual Review (failure, no source)": {
+      "main": [
+        [
+          {
+            "node": "VREVIEW - Parse Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "nodeGroups": [],
+  "tags": []
+}
