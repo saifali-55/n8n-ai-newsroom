@@ -57,4 +57,4 @@ n8n · OpenRouter (Qwen, Hermes, Gemini Flash-Lite, Qwen-Image) · Telegram Bot 
 
 ---
 
-Built by **Saif Ali Razzaq**, software engineer based in Baghdad. GitHub: [@saifali-55](https://github.com/saifali-55)
+Built by **Saif Ali Razzaq**, cyber security  engineer based in Baghdad. GitHub: [@saifali-55](https://github.com/saifali-55)
